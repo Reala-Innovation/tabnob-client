@@ -1,0 +1,23 @@
+.icon{
+font-weight: 800;
+  letter-spacing: 1px;
+font-size: 22px;
+}
+.icon .tap{
+    color:var(--primary);
+    
+}
+.icon .nob{
+    color: var(--gold);
+}
+
+.icon .tap,
+.icon .nob {
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+.icon img{
+    width:40px;
+    border-radius: 20px;
+    height: 40px;
+}

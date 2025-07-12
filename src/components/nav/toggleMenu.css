@@ -1,0 +1,32 @@
+.menu-toggle {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+}
+
+.bar {
+  width: 32px;
+  height: 4px;
+  background-color:var(--primary);
+  border-radius: 2px;
+  margin: 4px 0;
+  transition: all 0.3s ease;
+}
+
+/* When close is true (menu opened) */
+.menu-toggle.close .bar:nth-child(1) {
+  transform: rotate(45deg) translate(7px, 7px);
+}
+
+.menu-toggle.close .bar:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-toggle.close .bar:nth-child(3) {
+  transform: rotate(-45deg) translate(10px, -10px);
+}
