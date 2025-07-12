@@ -10,7 +10,9 @@ const Presenter:React.FC = () => {
 <br/>
 <br/>
 <br/>
-{width && <>
+
+{width > 900 && <>
+
 <br/>
 <br/>
 <br/>
