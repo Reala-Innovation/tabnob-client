@@ -1,6 +1,8 @@
 import type React from "react"
+import { useInnerWidth } from "../hooks/useInnerWidth";
 
 const Presenter:React.FC = () => {
+  const width=useInnerWidth();
   return (
     <div style={{padding:16}}>
 <br/>
@@ -8,6 +10,11 @@ const Presenter:React.FC = () => {
 <br/>
 <br/>
 <br/>
+{width && <>
+<br/>
+<br/>
+<br/>
+</>}
       <h1 style={{fontSize:40}} className='headingFont'>Send Bitcoin & Receive Mobile Money instantly</h1>
 
     </div>

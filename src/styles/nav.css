@@ -1,7 +1,7 @@
 .nav-item{
     min-height: 80px;
     padding:16px;
-    box-shadow: 1px 1px 10px 0px rgb(230, 236, 238);
+    box-shadow: 1px 1px 30px 0px rgb(243, 245, 246);
 border-radius: 0px 0px 40px 40px;
 position: fixed;
 width: 100%;
@@ -24,7 +24,7 @@ background: var(--white);
 .pc-menu button{
     transition: all;
     transition-duration: 800ms;
-           font-size: 18px;
+           font-size: 16px;
     font-weight: 550;
     text-transform: capitalize;
     text-align: start;
@@ -36,16 +36,23 @@ background: var(--white);
 }
 .pc-menu button.get-started{
     box-shadow: none !important;
+    height: 65px;
+    border-radius: 50px;
     color:white !important;
     background: var(--primary) !important;
 }
 @media (min-width:900px) {
     .nav-item{
-        border-radius: 40px;
-        margin-top: 20px;
+        border-radius: 60px;
+        margin-top: 30px;
 width: 100%;
-
     }
+.nav-item .nav-item-content{
+
+min-height: 70px !important;
+    align-items: center !important
+}
+
 }
 .nav-item .nav-item-content{
     height: 60px;
