@@ -38,5 +38,16 @@
 }
 
 .footer{
-    max-width: 95% !important;
+    max-width: 95%;
+}
+
+@media (min-width:900pc) {
+.faq-item {
+max-width:100% !important;
+width:100% !important;
+}
+.footer{
+max-width:100% !important;
+
+}
 }
