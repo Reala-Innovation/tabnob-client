@@ -6,11 +6,12 @@ border-radius: 0px 0px 40px 40px;
 position: fixed;
 width: 100%;
 background: var(--white);
+z-index: 9999;
 }
-#root{
+.body{
     margin:0 auto;
 }
-#root,.nav-item{
+.body,.nav-item{
     max-width: 1424px;
 }
 
@@ -61,7 +62,8 @@ min-height: 70px !important;
     align-items: flex-start;
     justify-content:space-between;
     height: 100%;
-    z-index: 9999;
+    z-index: 99999999;
+    background: var(--white);
 }
 
 .fullscreen-menu{

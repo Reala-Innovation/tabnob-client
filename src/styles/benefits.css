@@ -1,0 +1,30 @@
+.benefits .benefit-card{
+    width:100%;
+    border-radius: 8px;
+    border:1px solid rgb(239, 234, 234);
+    background: radial-gradient(rgb(240, 240, 246),var(--white));
+    min-height:200px;
+    margin-top: 10px;
+    box-shadow: 0px 0px 30px 0px rgb(236, 239, 240);
+    padding:10px;
+}
+.card-container{
+    flex-flow: row wrap;
+    gap:10px !important;
+}
+@media (min-width:900px) {
+.benefits .benefit-card{
+    max-width: 47%;
+    padding:16px !important;
+}
+
+}
+
+.benefits .benefit-card img{
+    width:60px;
+    height:60px;
+    border-radius: 15px;
+}
+.benefits .benefit-card b{
+    font-size: 18px !important;
+}

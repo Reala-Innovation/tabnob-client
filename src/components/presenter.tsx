@@ -1,5 +1,6 @@
 import type React from "react"
 import { useInnerWidth } from "../hooks/useInnerWidth";
+import GetStartedCard from "./getStartedCard";
 
 const Presenter:React.FC = () => {
   const width=useInnerWidth();
@@ -17,8 +18,9 @@ const Presenter:React.FC = () => {
 <br/>
 <br/>
 </>}
-      <h1 style={{fontSize:40}} className='headingFont'>Send Bitcoin & Receive Mobile Money instantly</h1>
-
+      <h1 data-aos={"fade-up"} style={{fontSize:40}} className='headingFont'>Send Bitcoin & Receive Mobile Money instantly</h1>
+<br/><br/>
+<GetStartedCard/>
     </div>
   )
 }

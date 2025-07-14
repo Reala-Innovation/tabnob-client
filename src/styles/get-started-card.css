@@ -1,0 +1,58 @@
+.get-started-card{
+    padding:10px;
+    border-radius: 10px;
+    background: var(--white);
+    max-width: 600px;
+margin:0 auto;
+
+}
+.get-started-card .input-container{
+    /* background: var(--white); */
+    /* height: 200px; */
+    border-radius: 20px;
+    width: 100%;
+    max-width: 600px;
+    margin:0 auto;
+    display: flex;
+    background: var(--white);
+    justify-content:space-between;
+    gap:10px;
+    border:2px solid rgb(224, 224, 229);
+    transition: all ;
+    transition-duration: 800ms;
+overflow: hidden;
+    /* box-shadow: 1px 0px 60px 0px rgb(227, 227, 242); */
+}
+.get-started-card .input-container:hover{
+
+    border:2px solid var(--primary);
+
+}
+
+.get-started-card span{
+    padding:5px 0px;
+}
+.get-started-card .input-container input{
+    flex-grow: 1;
+    border-radius: 30px;
+    border:none !important;
+    border-radius: 30px;
+padding:20px;
+width:100%;
+outline: none;
+}
+
+.get-started-card div input:focus{
+    outline: none !important;
+
+}
+
+.get-started-card div button{
+    padding:1px 20px;
+    border-radius: 0px !important;
+
+}
+
+.get-started-card div button:hover{
+    background: var(--textDarkColor);
+}

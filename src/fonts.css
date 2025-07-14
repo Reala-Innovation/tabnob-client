@@ -2,5 +2,6 @@
   font-family: 'Poppins';
   src: url('./assets/fonts/Poppins-Black.ttf') format('truetype');
   font-weight: 500;
+z-index: inherit;
   font-style: italic;
 }
