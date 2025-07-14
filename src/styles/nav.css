@@ -11,9 +11,12 @@ z-index: 9999;
 .dark-area,.dark-area *{
   display: none;
 }
+html,body{
+    overflow-x: hidden;
+}
 .body{
     margin:0 auto;
-    width:95vw;
+    width:100vw;
     overflow: hidden !important;
 }
 .body,.nav-item{
