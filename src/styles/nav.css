@@ -8,6 +8,9 @@ width: 100%;
 background: var(--white);
 z-index: 9999;
 }
+.dark-area,.dark-area *{
+  display: none;
+}
 .body{
     margin:0 auto;
     width:95vw;

@@ -3,6 +3,8 @@ import Presenter from '../components/presenter'
 import Nav from '../components/nav'
 import Benefit from '../components/benefit'
 import AboutUs from '../components/aboutUs'
+import Faqs from '../components/faqs'
+import Footer from '../Footer'
 
 const Home:React.FC = () => {
   return (<>
@@ -21,7 +23,10 @@ const Home:React.FC = () => {
 <div className='body '>
 
 <AboutUs/>
-
+<br/>
+<Faqs/>
+<br/>
+<Footer/>
 </div>
 </div>
 </div>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import "../styles/nav.css";
 import MenuToggle from "./nav/menuToggle";
 import Icon from './icon';
@@ -8,8 +8,34 @@ import { useInnerWidth } from '../hooks/useInnerWidth';
 const Nav: React.FC = () => {
   const [open, setOpen] = useState<boolean>(false);
 const width=useInnerWidth();
+const [isDarkArea,setIsDarkArea]=useState<boolean>(false);
+
+useEffect(()=>{
+window.onscroll=(()=>{
+  const y=window.scrollY;
+  if(y>1400 && window.innerWidth < 600){
+  if(!isDarkArea) {
+     setIsDarkArea(true);
+  }
+  }
+  else if(y>950 && window.innerWidth > 700){
+ if(!isDarkArea) {
+     setIsDarkArea(true);
+  }
+  }
+
+  else{
+  setIsDarkArea(false);
+
+  }
+})
+},[]);
+
+useEffect(()=>{
+console.log({isDarkArea});
+},[isDarkArea])
   return (
-    <div className="nav-item">
+    <div className={`nav-item ${isDarkArea ? 'dark-area':''}`}>
       <div className="nav-item-content">
         <Icon />
         

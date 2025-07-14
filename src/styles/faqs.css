@@ -1,0 +1,37 @@
+.faqs-container {
+  padding: 20px;
+  margin: auto;
+}
+
+.faq-item {
+  margin-top: 20px;
+  border-bottom: 1px solid #ddd;
+  padding: 10px 0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.faq-item h4 {
+  margin: 0;
+  font-weight: bold;
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.4s ease;
+  opacity: 0;
+  margin-top: 0;
+}
+
+.faq-item.show .faq-answer {
+  max-height: 300px; /* Adjust based on content */
+  opacity: 1 !important;
+  margin-top: 10px;
+}
+
+.faq-item .icon-up{
+    transition: all;
+    transition-duration: 800ms;
+    transform: rotate(180deg) !important;
+}
