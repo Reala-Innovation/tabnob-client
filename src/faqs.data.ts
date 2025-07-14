@@ -4,7 +4,7 @@ export const faqs = [
     answer: "Transactions are processed instantly. Once you confirm, the recipient receives the Mobile Money within seconds."
   },
   {
-    question: "Do I need to create an account to use BitSpenda?",
+    question: "Do I need to create an account to use Tapnob?",
     answer: "No account creation is needed. You can send Bitcoin and convert it to cash without signing up."
   },
   {
