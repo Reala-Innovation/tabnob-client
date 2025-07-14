@@ -125,7 +125,11 @@ setDataReady(true);
         options={["Nigeria"]}
         getOptionLabel={(option) => option}
         defaultValue={country}
-        onChange={(event: any, newValue) => setCountry(newValue as string)}
+        onChange={(event: any, newValue) => {
+          setCountry(newValue as string)
+           event.currentTarget
+        
+        }}
         renderInput={(params) => (
           <TextField
             {...params}
@@ -144,7 +148,10 @@ setDataReady(true);
       <Autocomplete
         options={banks}
         getOptionLabel={(option) => option.name}
-        onChange={(event, newValue) => setBank(newValue)}
+        onChange={(event, newValue) =>{
+           setBank(newValue)
+           event.currentTarget
+        }}
         renderInput={(params) => (
           <TextField
             {...params}
