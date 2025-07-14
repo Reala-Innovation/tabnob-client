@@ -1,0 +1,70 @@
+.app{
+    border-radius: 30px;
+    width:100%;
+    min-height: 200px;
+}
+.app .content{
+    border-radius: 10px;
+    background: var(--white);
+overflow: hidden;
+max-width: max-content;
+margin:0 auto;
+}
+
+.scrollable-dropdown {
+  max-height: 200px; /* or whatever height you like */
+  overflow-y: auto;
+}
+
+.Account-details{
+    margin-top: 10px;
+    padding:10px;
+    border-radius: 10px;
+    background: white;
+    box-shadow: 1px 1px 10px 0px rgb(244, 242, 242);
+}
+
+.Account-details.checked{
+    box-shadow: none !important;
+    border:1px solid rgb(74, 241, 74);
+}
+.Account-details.error{
+    box-shadow: none !important;
+    border:1px solid rgb(241, 74, 74);
+}
+.Account-details.error {
+    color:rgb(195, 33, 33) !important;
+}
+
+.pc-sideNav{
+    width:30vw;
+    background-color: var(--primary);
+    min-height: 450px;
+    background-image:url("/bitcoin.jpeg");
+    background-size: cover;
+    background-position: center;
+}
+.pc-sideNav *:not(button){
+    color:rgb(222, 222, 231) !important;
+}
+@media (min-width:900px) {
+    .app-content{
+        /* max-width:30vw !important; */
+        min-width:30vw !important;
+    }
+}
+
+.pc-sideNav .pc-side-content{
+    background: rgba(3, 5, 15, 0.779);
+    width: 100%;
+    min-height: 450px;
+border-radius: 15px;
+  backdrop-filter: blur(10px); /* frosted glass blur */
+  -webkit-backdrop-filter: blur(10px); /* Safari support */
+    height: 100%;
+    padding:16px;
+}
+
+.pc-sideNav .pc-side-content .back-button{
+    color:var(--primary) !important;
+}

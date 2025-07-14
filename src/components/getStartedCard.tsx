@@ -2,7 +2,9 @@ import { BiRightArrowAlt } from "react-icons/bi";
 import React from 'react'
 import "../styles/get-started-card.css"
 import { MDBBtn } from 'mdb-react-ui-kit'
+import { useNavigate } from "react-router-dom";
 const GetStartedCard:React.FC = () => {
+  const navigate=useNavigate();
   return (
     <div className='get-started-card'>
 
@@ -15,7 +17,9 @@ Convert Bitcoin to cash instantly — fast, secure, and hassle-free.
 
       <div className="input-container">
         <input  placeholder='Enter amount to recieve'/>
-        <MDBBtn style={{
+        <MDBBtn  onClick={()=>{
+          navigate("/app")
+        }} style={{
           background:"var(--primary)",
           boxShadow:'none',
 

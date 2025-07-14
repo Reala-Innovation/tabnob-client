@@ -4,6 +4,7 @@ import MenuToggle from "./nav/menuToggle";
 import Icon from './icon';
 import { MDBBtn } from "mdb-react-ui-kit";
 import { useInnerWidth } from '../hooks/useInnerWidth';
+import { useNavigate } from 'react-router-dom';
 
 const Nav: React.FC = () => {
   const [open, setOpen] = useState<boolean>(false);
@@ -30,10 +31,7 @@ window.onscroll=(()=>{
   }
 })
 },[]);
-
-useEffect(()=>{
-console.log({isDarkArea});
-},[isDarkArea])
+const navigate=useNavigate();
   return (
     <div className={`nav-item ${isDarkArea ? 'dark-area':''}`}>
       <div className="nav-item-content">
@@ -45,7 +43,12 @@ console.log({isDarkArea});
           <MDBBtn  color='link'>Services</MDBBtn>
           <MDBBtn  color='link'>Contact</MDBBtn>
           <MDBBtn  color='link'>FAQs</MDBBtn>
-          <MDBBtn  color='primary' className='get-started' rounded>Get started</MDBBtn>
+          <MDBBtn  color='primary' className='get-started'
+            onClick={()=>{
+          navigate("/app")
+        }}
+           rounded>Get started</MDBBtn>
+           
       </div>:<MenuToggle onClick={() => setOpen(!open)} isClose={open} />}
     
       </div>
