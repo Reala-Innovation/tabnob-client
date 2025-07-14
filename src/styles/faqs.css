@@ -35,3 +35,12 @@
     transition-duration: 800ms;
     transform: rotate(180deg) !important;
 }
+
+
+@media (max-width:900px) {
+.faq-item {
+  margin-left:-5vw !important;
+}
+
+    
+}
