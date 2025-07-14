@@ -8,6 +8,7 @@
   border-bottom: 1px solid #ddd;
   padding: 10px 0;
   cursor: pointer;
+  max-width: 96%;
   transition: all 0.3s ease;
 }
 
@@ -36,11 +37,3 @@
     transform: rotate(180deg) !important;
 }
 
-
-@media (max-width:900px) {
-.faq-item {
-  margin-left:-5vw !important;
-}
-
-    
-}
