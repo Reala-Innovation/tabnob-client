@@ -1,4 +1,3 @@
-import { AppName } from './icon';
 import "../styles/about.css";
 
 const AboutUs = () => {
