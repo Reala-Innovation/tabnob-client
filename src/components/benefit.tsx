@@ -2,28 +2,29 @@ import  { AppName } from './icon'
 import "../styles/benefits.css";
 function Benefit() {
 
-  const cards=[
-    {
-      icon:"/user.png",
-      name:"No account creation",
-      text:"Skip the lengthy sign-up process and start sending money instantly—no registrations, no delays.",
-    },
-   {
-    icon: "/kyc.jpeg",
-    name: "No KYC Required",
-    text: "Enjoy private, secure transactions without ID checks or document uploads.",
+const cards = [
+  {
+    icon: "/user.png",
+    name: "Send Without Signing Up",
+    text: "Skip the sign-up process and start sending money instantly—no accounts, no delays.",
   },
   {
+  icon: "/user.png",
+  name: "Real-Time Delivery",
+  text: "Transfers are processed instantly — no waiting, just fast confirmation to bank accounts.",
+},
+  {
     icon: "/zero.png",
-    name: "Zero Transaction Fees",
+    name: "Zero Fees, Always",
     text: "Send money without hidden charges — what you send is exactly what they receive.",
   },
   {
     icon: "/map.png",
-    name: "No Location Limits",
-    text: "Send Bitcoin to Instant Bank Transfer across supported countries, with no borders or bank restrictions.",
-  }
-]
+    name: "Borderless Bank Transfers",
+    text: "Send Bitcoin to any supported country with instant bank transfers—no limits, no hassle.",
+  },
+];
+
   return (
     <div style={{padding:16}} className='benefits'>
       <h3 data-aos="fade-in" 
