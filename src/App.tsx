@@ -1,10 +1,12 @@
 
-import './App.css'
+import './App.css';
+import 'react-loading-skeleton/dist/skeleton.css'
 import { Route,BrowserRouter as Router, Routes } from 'react-router-dom'
 import Home from './pages/home'
 import { useEffect } from 'react'
 import AOS from "aos";
 import TabNobApp from './pages/app';
+import { Toaster } from 'react-hot-toast';
 function App() {
 useEffect(()=>{
      AOS.init({
@@ -12,6 +14,7 @@ useEffect(()=>{
 },[]);
   return (
     <>
+    <Toaster/>
          <Router>
             <Routes>
    <Route path="*" element={<Home />} />

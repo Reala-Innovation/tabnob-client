@@ -8,7 +8,7 @@ const GetStartedCard:React.FC = () => {
   return (
     <div className='get-started-card'>
 
-<div className="d-flex align-items-center justify-content-between">      
+<div className="d-flex align-items-center justify-content-between" style={{width:"100%"}}>      
       <span style={{}}>
 Convert Bitcoin to cash instantly — fast, secure, and hassle-free.
       </span>

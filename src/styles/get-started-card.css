@@ -1,6 +1,6 @@
 .get-started-card{
     padding:10px;
-    border-radius: 10px;
+    border-radius: 5px;
     background: var(--white);
     max-width: 600px;
 margin:0 auto;
@@ -9,7 +9,7 @@ margin:0 auto;
 .get-started-card .input-container{
     /* background: var(--white); */
     /* height: 200px; */
-    border-radius: 20px;
+    border-radius: 40px;
     width: 100%;
     max-width: 600px;
     margin:0 auto;

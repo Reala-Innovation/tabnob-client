@@ -3,6 +3,15 @@
     width:100%;
     min-height: 200px;
 }
+
+/* .app .content{
+background: red !important;
+} */
+@media (min-width:900px) {
+.app{
+    max-height: 600px;
+}
+}
 .app .content{
     border-radius: 10px;
     background: var(--white);
@@ -10,7 +19,14 @@ overflow: hidden;
 max-width: max-content;
 margin:0 auto;
 }
+@media (max-width:900px) {
+.app .content{
+    
+max-width: 90%;
 
+}
+
+}
 .scrollable-dropdown {
   max-height: 200px; /* or whatever height you like */
   overflow-y: auto;
@@ -39,7 +55,8 @@ margin:0 auto;
 .pc-sideNav{
     width:30vw;
     background-color: var(--primary);
-    min-height: 450px;
+    min-height: 550px;
+
     background-image:url("/bitcoin.jpeg");
     background-size: cover;
     background-position: center;
@@ -53,18 +70,30 @@ margin:0 auto;
         min-width:30vw !important;
     }
 }
-
+@media (min-width:1024px) {
+    .app-content{
+        /* max-width:30vw !important; */
+        min-width:400px !important;
+        
+    }
+}
 .pc-sideNav .pc-side-content{
     background: rgba(3, 5, 15, 0.779);
     width: 100%;
-    min-height: 450px;
+    min-height: 550px;
 border-radius: 15px;
   backdrop-filter: blur(10px); /* frosted glass blur */
   -webkit-backdrop-filter: blur(10px); /* Safari support */
     height: 100%;
     padding:16px;
+    
 }
 
 .pc-sideNav .pc-side-content .back-button{
     color:var(--primary) !important;
+}
+
+
+.dropdown-toggle::after {
+  display: none !important;
 }

@@ -41,7 +41,7 @@
     max-width: 95%;
 }
 
-@media (min-width:900pc) {
+@media (min-width:900px) {
 .faq-item {
 max-width:100% !important;
 width:100% !important;

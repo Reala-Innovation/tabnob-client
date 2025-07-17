@@ -1,3 +1,4 @@
+import { AiFillCaretDown } from "react-icons/ai"; 
 import React, { useEffect, useState } from 'react';
 import {
   MDBContainer,
@@ -9,8 +10,17 @@ import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import api from '../../api/api';
 import AccountDetailsCard from './AccountDetailsCard';
+import { formatToNaira } from '../../logics/date';
+import { Skeleton } from '@mui/material';
+import {
+  MDBDropdown,
+  MDBDropdownToggle,
+  MDBDropdownMenu,
+  MDBDropdownItem
+} from 'mdb-react-ui-kit';
 
-const BankForm: React.FC = () => {
+
+const BankForm: React.FC<{onNext:(props:any)=>void,loading:boolean}> = ({onNext,loading}) => {
   const [country, setCountry] = useState("Nigeria");
   const [bank, setBank] = useState<{ name: string; code: string } | null>(null);
   const [accountNumber, setAccountNumber] = useState("");
@@ -37,8 +47,31 @@ const BankForm: React.FC = () => {
     }
   };
 
+  const [amountLimits,setAmountLimits]=useState<{max:number,min:number}>()
+  
+  const getMaxAndMin = async () => {
+    try {
+      set_loading_banks(true);
+      const res = await api.get("/api/v1/transactions/get-payout-limit");
+      const data = res.data.data;
+      if (data) {
+        setAmountLimits({
+          min:data?.lowerLimit,
+          max:data?.higherLimit
+        })
+      } else {
+        setError("");
+      }
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      set_loading_banks(false);
+    }
+  };
+
   useEffect(() => {
     getBanks();
+    getMaxAndMin();
   }, []);
 
   const [isValidating, setIsValidating] = useState<boolean>(false);
@@ -109,37 +142,44 @@ validateBank();
 
 
   useEffect(()=>{
-    if(accountDetails && parseFloat(amount||"0") > 1000){
+    if(accountDetails && parseFloat(amount||"0") > (amountLimits?.min||0) && parseFloat(amount||"0") < (amountLimits?.max||0)){
 setDataReady(true);
     }
   });
 
   return (
-    <MDBContainer className="p-4" style={{ maxWidth: "400px" }}>
+    <MDBContainer className="form-container p-4" style={{ maxWidth: "400px" }}>
 
 
       {error && <span className='error'>{error}</span>}
 
       <label className="form-label">Choose country</label>
-      <Autocomplete
-        options={["Nigeria"]}
-        getOptionLabel={(option) => option}
-        defaultValue={country}
-        onChange={(event: any, newValue) => {
-          setCountry(newValue as string)
-           event.currentTarget
-        
-        }}
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            placeholder="Select a country"
-            variant="outlined"
-            size="small"
-          />
-        )}
-      />
-
+      <MDBDropdown>
+        <MDBDropdownToggle
+          tag="button"
+          className="btn btn-outline-primary"
+          style={{
+            borderRadius:4,
+            width:"100%",
+            height:40,
+            display:'flex',
+            borderColor:'#e0d8d8',
+            justifyContent:"space-between",
+            alignItems:'center'
+          }}
+        >
+          <span style={{color:"#757171"}}>{country}</span>
+  {/* <FaChevronDown size={16} color="#757171" /> */}
+  <AiFillCaretDown style={{transform:"translate(6px,0px)"}} size={12} color="#737171" />
+        </MDBDropdownToggle>
+        <MDBDropdownMenu style={{
+          width:"100%"
+        }}>
+          <MDBDropdownItem link onClick={() => setCountry('Nigeria')}>
+            Nigeria
+          </MDBDropdownItem>
+        </MDBDropdownMenu>
+      </MDBDropdown>
 
 
       <label className="form-label mt-3">
@@ -177,8 +217,8 @@ setDataReady(true);
       />
 {(isValidating ||validateError|| (bank && accountDetails )) && <AccountDetailsCard error={validateError} bank={bank} bankDetails={accountDetails} state={isValidating ? "loading":accountDetails ? "user":"error"}/>}
 
-      <label className="form-label mt-3">
-        Amount <span style={{ color: "#9a9a9a" }}>(NGN 1,000 - NGN 2,000,000)</span>
+      <label className="form-label mt-3 d-flex " style={{gap:10}}>
+        Amount {amountLimits ? <span style={{ color: "#9a9a9a" }}>({formatToNaira(amountLimits.min,true)} - {formatToNaira(amountLimits.max,true)})</span>:<><Skeleton width={50} /> - <Skeleton width={50} /></>}
       </label>
       <MDBInput
         type="number"
@@ -188,16 +228,22 @@ setDataReady(true);
       />
       <MDBBtn
         className="w-100 mt-4"
+        onClick={()=>onNext({
+          bank,
+          accountDetails,
+          accountNumber,
+          amount
+        })}
         style={{
           borderRadius:30,
           background: "linear-gradient(30deg, var(--gold), var(--primary))",
           border: "none",
-          opacity:dataReady? 1:0.5
+          opacity:(!dataReady || loading) ? 0.5:1
 
         }}
-        disabled={!dataReady}
+        disabled={!dataReady || loading}
       >
-        Next
+       {loading ? "processing...":" Next"}
       </MDBBtn>
     </MDBContainer>
   );
