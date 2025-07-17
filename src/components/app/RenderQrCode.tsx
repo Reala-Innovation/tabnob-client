@@ -4,12 +4,13 @@ import { MDBBadge, MDBBtn, MDBContainer } from 'mdb-react-ui-kit';
 import React, { useEffect, useState } from 'react';
 import type { QuoteData } from './ConfirmDetails';
 import api from '../../api/api';
-import animation from './loader.json'
+// import animation from './loader.json'
 import toast from "react-hot-toast";
 import { formatToNaira } from '../../logics/date';
 import { getErrorMessage } from "../../logics/getErrorMesage";
 import { useNavigate } from "react-router-dom";
-import Lottie from "../../lib/LotieWeb";
+// import Lottie from "../../lib/LotieWeb";
+import { MoonLoader } from "react-spinners";
 
 export interface props {
   quoteData: QuoteData;
@@ -136,14 +137,8 @@ if(followHeightContent){
         <div className="d-flex align-items-center justify-content-center">
        <div>
         {/* <span style={{textAlign:"center",display:"inline-block",fontSize:14,fontStyle:"italic",width:"100%"}}>Please wait...</span> */}
+         <MoonLoader size={30} color='rgb(73, 105, 220)'/>
 
-         <Lottie 
-        width={150}
-        height={150}
-          options={{
-      animationData: animation
-    }}
-        /> 
         </div>
         </div>
       )}

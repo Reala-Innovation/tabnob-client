@@ -1,11 +1,10 @@
-// components/Lottie.tsx
 import React, { useEffect, useRef } from 'react';
 import lottie from 'lottie-web';
 
 interface LottieProps {
   width?: number;
   height?: number;
-  speed?:number,
+  speed?: number;
   options: {
     animationData: object;
     loop?: boolean;
@@ -18,28 +17,33 @@ const Lottie: React.FC<LottieProps> = ({
   width = 300,
   height = 300,
   options,
-  speed
+  speed,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const animationRef = useRef<any | null>(null);
 
   useEffect(() => {
     if (containerRef.current) {
-      animationRef.current = lottie.loadAnimation({
+      const animation = lottie.loadAnimation({
         container: containerRef.current,
         renderer: 'svg',
         loop: options.loop ?? true,
         autoplay: options.autoplay ?? true,
-        animationData: options.animationData,
+        animationData: structuredClone(options.animationData), // ✅ deep clone
         rendererSettings: options.rendererSettings,
-       ...(speed? {speed}:{})
       });
+
+      if (speed) {
+        animation.setSpeed(speed);
+      }
+
+      animationRef.current = animation;
     }
 
     return () => {
       animationRef.current?.destroy();
     };
-  }, [options]);
+  }, [options, speed]);
 
   return (
     <div
