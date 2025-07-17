@@ -142,11 +142,14 @@ validateBank();
 
 
   useEffect(()=>{
-    if(accountDetails && parseFloat(amount||"0") > (amountLimits?.min||0) && parseFloat(amount||"0") < (amountLimits?.max||0)){
+    if(accountDetails && (parseFloat(amount||"0") >= (amountLimits?.min||0) && parseFloat(amount||"0") <= (amountLimits?.max||0))){
 setDataReady(true);
     }
-  });
-
+    else{
+      setDataReady(false);
+    }
+  },[accountDetails,amount,amountLimits]);
+console.log(dataReady)
   return (
     <MDBContainer className="form-container p-4" style={{ maxWidth: "400px" }}>
 
