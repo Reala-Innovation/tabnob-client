@@ -1,6 +1,6 @@
 import { BiCheckDouble } from "react-icons/bi"; 
 import { FaRegCopy } from "react-icons/fa"; 
-import { MDBBtn, MDBContainer } from 'mdb-react-ui-kit';
+import { MDBBadge, MDBBtn, MDBContainer } from 'mdb-react-ui-kit';
 import React, { useEffect, useState } from 'react';
 import type { QuoteData } from './ConfirmDetails';
 import api from '../../api/api';
@@ -57,6 +57,7 @@ const RenderQrCode: React.FC<props> = ({ quoteData, onSuccess }) => {
   const [copied,setCopied]=useState<boolean>(false);
   const navigate=useNavigate();
   const [timeoutId,setTimeoutId]=useState<any>();
+const [showStatus,setShowStatus]=useState<boolean>(false);
   const fetchDetails = async () => {
     try {
       setLoading(true)
@@ -77,14 +78,18 @@ const RenderQrCode: React.FC<props> = ({ quoteData, onSuccess }) => {
         else if(resData?.status==="completed"){
           onSuccess();//go to next once is successful
         }
-        else{
-        toast.error("Payment is "+(resData?.status=="pending_address_deposit" ? "pending":resData?.status)+" please wait for it to complete" )
+        else if(data){
+        toast.error("Trasaction is "+(resData?.status=="pending_address_deposit" ? "pending":resData?.status)+"" )
         //retry in 30 secs
         if(timeoutId)clearTimeout(timeoutId)
-        const id=setTimeout(()=>{
+        
+          if(window.location.pathname.includes("/app")){
+          const id=setTimeout(()=>{
 fetchDetails();
         },30*1000);
         setTimeoutId(id);
+      }
+
       }
       } else {
         setError('Something went wrong. Please try again in a few seconds.');
@@ -115,6 +120,15 @@ if(followHeightContent){
     }
   },[data]);
 
+  
+  const status=data?.status||""
+  const statusColor = status === "completed"
+  ? "success"
+  : status === "pending_address_deposit"
+  ? "warning"
+  : status === "failed"
+  ? "danger"
+  :status=="expired"? "danger": "secondary"; // default fallback
 
   return (
     <MDBContainer className="form-container p-4" style={{ maxWidth: '400px' }}>
@@ -215,13 +229,21 @@ if(followHeightContent){
             <strong>Expires In:</strong> <span>{data.expiresInText}</span>
         
           </div>
+          {showStatus &&  <div className="mb-2">
+      <strong>Status:</strong> <MDBBadge size={'sm'} color={statusColor}>{(data?.status=="pending_address_deposit" ? "pending":data?.status)}</MDBBadge>
+    </div>
+}
           </div>
 
           <MDBBtn
           style={{width:"100%"}}
             className="mt-3"
             color="success"
-            onClick={()=>fetchDetails()}
+            onClick={()=>{
+              setShowStatus(true)
+              fetchDetails()
+            }
+            }
             disabled={pleaseWait}
             rounded
           >

@@ -143,7 +143,7 @@ if(followHeightContent){
   const status=data?.status||""
   const statusColor = status === "completed"
   ? "success"
-  : status === "pending"
+  : status === "pending_address_deposit"
   ? "warning"
   : status === "failed"
   ? "danger"
@@ -203,7 +203,7 @@ if(followHeightContent){
     </div>
 
     <div className="mb-2">
-      <strong>Status:</strong> <MDBBadge  color={statusColor}>{data.status}</MDBBadge>
+      <strong>Status:</strong> <MDBBadge  color={statusColor}>{(data?.status=="pending_address_deposit" ? "pending":data?.status)}</MDBBadge>
     </div>
 
     <div className="mb-2">

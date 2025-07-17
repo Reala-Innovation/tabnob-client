@@ -105,7 +105,10 @@ const ConfirmDetailsContent: React.FC<QuoteContentProps> = ({ onClose, onConfirm
             <p className="expiry-text">{quoteData.expiresInText}</p>
           </div>
           
-          <button className="confirm-button" onClick={()=>onConfirm(quoteData)}>
+          <button className="confirm-button" onClick={()=>{
+            onConfirm(quoteData)
+            sessionStorage.removeItem("amount")
+          }}>
             Generate Invorce
           </button>
           

@@ -264,7 +264,7 @@ setDataReady(true);
         }}
         disabled={!dataReady || loading}
       >
-       {loading ? "processing...":" Next"}
+       {loading ? <>processing...<ClipLoader size={14}/></>:" Next"}
       </MDBBtn>
     </MDBContainer>
   );

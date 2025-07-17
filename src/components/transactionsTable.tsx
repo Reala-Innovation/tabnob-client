@@ -9,11 +9,11 @@ import {
   MDBPaginationItem,
   MDBPaginationLink,
   MDBInput,
-  MDBSpinner
 } from 'mdb-react-ui-kit';
 import api from '../api/api';
 import { getErrorMessage } from '../logics/getErrorMesage';
 import { formatToDollars, formatToNaira } from '../logics/date';
+import { Skeleton } from '@mui/material';
 
 interface TransactionItem {
   reference: string;
@@ -33,11 +33,12 @@ interface TransactionItem {
 const statusColorMap: Record<string, string> = {
   success: 'success',
   pending: 'warning',
+  "pending_address_deposit":"warning",
   failed: 'danger',
   expired: 'secondary'
 };
 
-const ITEMS_PER_PAGE = 10;
+const ITEMS_PER_PAGE = 5;
 
 const TransactionTable: React.FC = () => {
   const [transactions, setTransactions] = useState<TransactionItem[]>([]);
@@ -114,7 +115,7 @@ const TransactionTable: React.FC = () => {
               [...Array(5)].map((_, i) => (
                 <tr key={i}>
                   {Array(12).fill(0).map((_, idx) => (
-                    <td key={idx}><MDBSpinner grow size="sm" /></td>
+                    <td key={idx}><Skeleton width={50} height={20} /></td>
                   ))}
                 </tr>
               ))
@@ -125,7 +126,7 @@ const TransactionTable: React.FC = () => {
                   <td>{item.satAmount}</td>
                   <td>
                     <MDBBadge color={(statusColorMap[item.status.toLowerCase()] || 'dark') as "primary"} pill>
-                      {item.status}
+                      {(item?.status=="pending_address_deposit" ? "pending":item?.status)}
                     </MDBBadge>
                   </td>
                   <td>{new Date(item.createdAt).toLocaleString()}</td>
