@@ -42,7 +42,7 @@ const TabNobApp:React.FC = () => {
     description: 'Use your Bitcoin wallet to scan the QR code and send the exact amount.',
   },
   {
-    label: 'Confirmation',
+    label: 'Finish',
     description: 'We’ll verify the transaction and confirm once the funds are on the way.',
   },
 ];
@@ -156,7 +156,7 @@ setActiveStep(activeStep+1);
 
 
 
-      {width < 900 ? <Sheet snapPoints={[800]} initialSnap={1}  isOpen={(isOpen && quoteData) ? true:false} onClose={() => setOpen(false)}>
+      {width < 900 ? <Sheet snapPoints={[680]} initialSnap={0}  isOpen={(isOpen && quoteData) ? true:false} onClose={() => setOpen(false)}>
         <Sheet.Container>
           <Sheet.Header />
           <Sheet.Content>{(requestData && quoteData) && <ConfirmDetails 

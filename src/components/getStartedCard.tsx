@@ -16,7 +16,10 @@ Convert Bitcoin to cash instantly — fast, secure, and hassle-free.
 </div>
 
       <div className="input-container">
-        <input  placeholder='Enter amount to recieve'/>
+        <input onChange={(e)=>{
+          const {target:{value}}=e;
+          sessionStorage.setItem("amount",value);
+        }} placeholder='Enter amount to recieve'/>
         <MDBBtn  onClick={()=>{
           navigate("/app")
         }} style={{

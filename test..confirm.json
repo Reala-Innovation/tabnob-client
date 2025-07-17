@@ -1,0 +1,62 @@
+{
+    "id": "f3d6eb3c-ea51-4352-84d8-832346bc04a0",
+    "createdAt": "2025-07-17T16:37:26.053Z",
+    "updatedAt": "2025-07-17T16:37:41.908Z",
+    "quoteId": "QT_61621",
+    "companyId": "e9738d0c-ed88-4283-b999-5a8b8166153c",
+    "customerId": "03290a95-5896-4672-aa02-2c0577f0de63",
+    "paymentReason": "Payout transaction",
+    "reference": "669511ec204c4a28",
+    "callbackUrl": null,
+    "beneficiaryId": "74c92ce5-beda-4ef2-a55b-b3b7e8efd414",
+    "status": "pending_address_deposit",
+    "exchangeRate": {
+        "btc": {
+            "rate": 118471.2,
+            "swapRate": 0
+        },
+        "rate": 1633.2,
+        "currency": "ngn"
+    },
+    "beneficiary": {
+        "id": "74c92ce5-beda-4ef2-a55b-b3b7e8efd414",
+        "status": "success",
+        "country": "NG",
+        "currency": "NGN",
+        "createdAt": "2025-07-17T16:37:35.251Z",
+        "reference": "QT_61621_009fe275b277",
+        "updatedAt": "2025-07-17T16:37:35.251Z",
+        "destination": {
+            "type": "BANK",
+            "bankCode": "999992",
+            "bankName": "",
+            "accountName": "JOHN DOE",
+            "accountNumber": "9060793284"
+        }
+    },
+    "trip": {
+        "submitted": "1752770261",
+        "quoteSentAt": "1752770254",
+        "assetReceived": null,
+        "initializedAt": "1752770258",
+        "completionTime": null,
+        "processingStart": null,
+        "timeToCompletion": null
+    },
+    "clientMetaData": {},
+    "satAmount": "5166 this",
+    "btcAmount": "0.00005166",
+    "amount": "6.12 this",
+    "centAmount": "612",
+    "settlementAmount": "10000 this ",
+    "centFees": "0",
+    "fees": "0",
+    "address": "lnbt5166-mocked-d13cb6d8a0fa7778e46cf9a7410eae34727d990062a121131a09aaa8c56fa0adc563b00b246411ea4d7e8ed6aab556fb69b1a9064e29723351f68d3c6146f1cc27151682dc3cqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq66b2946f2952a0fc6c5725f349566851d8b710942a726194605e071bb4fdb3d85230f583906cecbd3414c94479380fe63113f4915a1134cb3163677212d8435b1523f4b143f8",
+    "source": "onchain",
+    "fromAsset": "btc",
+    "chain": "lightning",
+    "toCurrency": "ngn",
+    "paymentETA": "3-5 minutes",
+    "expiry": "2025-07-17T16:43:36.027Z",
+    "bankSessionId": null
+}

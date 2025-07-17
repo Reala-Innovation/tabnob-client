@@ -24,7 +24,7 @@ const BankForm: React.FC<{onNext:(props:any)=>void,loading:boolean}> = ({onNext,
   const [country, setCountry] = useState("Nigeria");
   const [bank, setBank] = useState<{ name: string; code: string } | null>(null);
   const [accountNumber, setAccountNumber] = useState("");
-  const [amount, setAmount] = useState("");
+  const [amount, setAmount] = useState(sessionStorage.amount||"");
 
   const [banks, setBanks] = useState<{ name: string; code: string }[]>([]);
   const [loading_banks, set_loading_banks] = useState<boolean>(false);

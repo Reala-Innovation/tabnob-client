@@ -43,11 +43,14 @@ const navigate=useNavigate();
           <MDBBtn  color='link'>Services</MDBBtn>
           <MDBBtn  color='link'>Contact</MDBBtn>
           <MDBBtn  color='link'>FAQs</MDBBtn>
+
           <MDBBtn  color='primary' className='get-started'
             onClick={()=>{
-          navigate("/app")
+          navigate("/Transactions")
         }}
-           rounded>Get started</MDBBtn>
+           rounded>Transactions</MDBBtn>
+
+         
            
       </div>:<MenuToggle onClick={() => setOpen(!open)} isClose={open} />}
     
@@ -60,7 +63,21 @@ const navigate=useNavigate();
           <MDBBtn color='link'>About Us</MDBBtn>
           <MDBBtn  color='link'>Services</MDBBtn>
           <MDBBtn  color='link'>Contact</MDBBtn>
+
           <MDBBtn  color='link'>FAQs</MDBBtn>
+<br/>
+<br/>
+            <MDBBtn  color='secondary'  style={{textAlign:"center",color:"white"}} className='get-started'
+            onClick={()=>{
+          navigate("/Transactions")
+        }}
+           rounded>Transactions</MDBBtn>
+           <br/>
+                <MDBBtn  color='warning'  style={{textAlign:"center",color:"white"}} className='get-started'
+            onClick={()=>{
+          navigate("/app")
+        }}
+           rounded>Get started</MDBBtn>
       </div>}
 
 

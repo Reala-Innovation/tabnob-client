@@ -7,6 +7,9 @@ import api from '../../api/api';
 import Lottie from 'lottie-react-web'
 import animation from './loader.json'
 import toast from "react-hot-toast";
+import { formatToNaira } from '../../logics/date';
+import { getErrorMessage } from "../../logics/getErrorMesage";
+import { useNavigate } from "react-router-dom";
 
 export interface props {
   quoteData: QuoteData;
@@ -48,30 +51,51 @@ export interface CryptoQuote {
 }
 const RenderQrCode: React.FC<props> = ({ quoteData, onSuccess }) => {
   const [loading, setLoading] = useState<boolean>(true);
+  const [pleaseWait,setPleaseWait]=useState<boolean>(false);
   const [error, setError] = useState<string>('');
   const [data, setData] = useState<CryptoQuote>();
   const [copied,setCopied]=useState<boolean>(false);
-
+  const navigate=useNavigate();
+  const [timeoutId,setTimeoutId]=useState<any>();
   const fetchDetails = async () => {
     try {
-      setLoading(true);
-      setError('');
+      setLoading(true)
+      if(data)setPleaseWait(true)
+      setError('')
       const res = await api.post('/api/v1/transactions/finitiate-payout', {
         quoteId: quoteData?.quoteId,
-        transactionId: quoteData?.id,
-      });
-
+        transactionId: quoteData?.id
+      })
       if (res?.data?.success) {
         setData(res.data.data);
+        const resData=(res.data.data as CryptoQuote)
+        if(resData.status=="expired" || resData?.status== "failed"){
+          toast.error("Transaction "+resData?.status)
+        navigate("/Transactions");
+
+        }
+        else if(resData?.status==="completed"){
+          onSuccess();//go to next once is successful
+        }
+        else{
+        toast.error("Payment is "+(resData?.status=="pending_address_deposit" ? "pending":resData?.status)+" please wait for it to complete" )
+        //retry in 30 secs
+        if(timeoutId)clearTimeout(timeoutId)
+        const id=setTimeout(()=>{
+fetchDetails();
+        },30*1000);
+        setTimeoutId(id);
+      }
       } else {
         setError('Something went wrong. Please try again in a few seconds.');
       }
     } catch (err: any) {
-      setError(err.message || 'Something went wrong.');
+      setError(getErrorMessage(err?.message) || 'Something went wrong.');
     } finally {
       setLoading(false);
+      setPleaseWait(false)
     }
-  };
+  }
 
   useEffect(() => {
     if (quoteData) fetchDetails();
@@ -91,7 +115,6 @@ if(followHeightContent){
     }
   },[data]);
 
-  console.log(quoteData);
 
   return (
     <MDBContainer className="form-container p-4" style={{ maxWidth: '400px' }}>
@@ -145,7 +168,7 @@ if(followHeightContent){
             }}
           />
           <p>
-            <strong>Send:</strong> {data.btcAmount} BTC
+            <strong>Send:</strong> {data.satAmount} SAT Amount
           </p>
        
             <div style={{background:"#eeedf4",padding:5,borderRadius:5,gap:5}} className='d-flex align-items-center justify-content-between'>
@@ -166,7 +189,7 @@ if(followHeightContent){
             setCopied(false);
           },10000)
         } catch (err:any) {
-          toast.error(err?.message||"Could not copy please try again")
+          toast.error(getErrorMessage(err?.message) ||"Could not copy please try again")
         }
             }} style={{padding:5,background:"white"}} color='secondary'>{!copied ? <FaRegCopy  style={{marginLeft:-3}} size={20} />:<BiCheckDouble style={{marginLeft:-3}} size={20} />}</MDBBtn>
             </div>
@@ -177,11 +200,12 @@ if(followHeightContent){
           }}>
             
             <div className="d-flex align-items-center justify-content-between"> 
-                <strong>Exchange Rate:</strong> <span>${data.exchangeRate} / BTC</span>
+                <strong>Exchange Rate:</strong> <span>{formatToNaira(data.exchangeRate,true)} / USD</span>
             </div>
 
           
-             <div className="d-flex align-items-center justify-content-between"><strong>Settlement:</strong> 
+             <div className="d-flex align-items-center justify-content-between">
+                <strong>Amount to receive:</strong> 
              <span>₦{data.settlementAmount.toLocaleString()}</span></div>
              
              <div className="d-flex align-items-center justify-content-between">
@@ -197,10 +221,11 @@ if(followHeightContent){
           style={{width:"100%"}}
             className="mt-3"
             color="success"
-            onClick={onSuccess}
+            onClick={()=>fetchDetails()}
+            disabled={pleaseWait}
             rounded
           >
-            I've Paid
+            {pleaseWait ? "Please wait...":"I've Paid"}
           </MDBBtn>
         </div>
       )}
