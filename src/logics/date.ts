@@ -367,7 +367,7 @@ export const convertToCamelCase=(inputString:string)=>{
   // Split the input string into words
   const words = inputString.split(' ');
   // Capitalize the first letter of each word (except the first word)
-  const camelCaseWords = words.map((word:string, index:number) => {
+  const camelCaseWords = words.map((word:string) => {
       return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
   });
   // Join the words to create the camelCase string
