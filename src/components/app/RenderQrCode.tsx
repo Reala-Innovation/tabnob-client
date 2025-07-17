@@ -4,12 +4,12 @@ import { MDBBadge, MDBBtn, MDBContainer } from 'mdb-react-ui-kit';
 import React, { useEffect, useState } from 'react';
 import type { QuoteData } from './ConfirmDetails';
 import api from '../../api/api';
-import Lottie from 'lottie-react-web'
 import animation from './loader.json'
 import toast from "react-hot-toast";
 import { formatToNaira } from '../../logics/date';
 import { getErrorMessage } from "../../logics/getErrorMesage";
 import { useNavigate } from "react-router-dom";
+import Lottie from "../../lib/LotieWeb";
 
 export interface props {
   quoteData: QuoteData;
@@ -137,13 +137,13 @@ if(followHeightContent){
        <div>
         {/* <span style={{textAlign:"center",display:"inline-block",fontSize:14,fontStyle:"italic",width:"100%"}}>Please wait...</span> */}
 
-        <Lottie 
+         <Lottie 
         width={150}
         height={150}
           options={{
       animationData: animation
     }}
-        />
+        /> 
         </div>
         </div>
       )}

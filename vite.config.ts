@@ -7,7 +7,6 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
-        injectRegister: 'auto',
 
       manifest: {
         name: 'Tabnob',
@@ -32,7 +31,6 @@ export default defineConfig({
             src: '/pwa512x512.png',
             sizes: '512x512',
             type: 'image/png',
-            purpose: 'any maskable',
           },
         ],
       },
