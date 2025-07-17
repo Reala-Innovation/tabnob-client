@@ -11,7 +11,7 @@ export default defineConfig({
   manifest: {
     name: 'Tabnob',
     short_name: 'Tabnob',
-    description: 'Send Bitcoin & Receive Mobile Money instantly',
+    description: 'Send Bitcoin & Instantly Cash Out to Bank',
     theme_color: '#ffffff',
     background_color: '#ffffff',
     display: 'standalone',

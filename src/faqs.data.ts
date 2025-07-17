@@ -1,7 +1,7 @@
 export const faqs = [
   {
     question: "How fast are transactions processed?",
-    answer: "Transactions are processed instantly. Once you confirm, the recipient receives the Mobile Money within seconds."
+    answer: "Transactions are processed instantly. Once you confirm, the recipient receives the Bank Transfer within seconds."
   },
   {
     question: "Do I need to create an account to use Tapnob?",
@@ -17,6 +17,6 @@ export const faqs = [
   },
   {
     question: "Which countries do you support?",
-    answer: "We support Mobile Money cash-outs in multiple African countries. Check our website for the latest supported regions."
+    answer: "We support Instant Bank cash-outs in multiple African countries. Check our website for the latest supported regions."
   }
 ];

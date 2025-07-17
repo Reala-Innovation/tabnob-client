@@ -21,7 +21,7 @@ function Benefit() {
   {
     icon: "/map.png",
     name: "No Location Limits",
-    text: "Send Bitcoin to Mobile Money across supported countries, with no borders or bank restrictions.",
+    text: "Send Bitcoin to Instant Bank Transfer across supported countries, with no borders or bank restrictions.",
   }
 ]
   return (
