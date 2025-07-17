@@ -1,6 +1,5 @@
 
 import './App.css';
-import 'react-loading-skeleton/dist/skeleton.css'
 import { Route,BrowserRouter as Router, Routes } from 'react-router-dom'
 import Home from './pages/home'
 import { useEffect } from 'react'

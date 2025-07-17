@@ -6,9 +6,7 @@ import { useInnerWidth } from '../hooks/useInnerWidth'
 import TransactionStepper from './pc-stepper'
 import MobileTransactionStepper from './mobile-stepper'
 import { Sheet } from 'react-modal-sheet';
-import 'react-loading-skeleton/dist/skeleton.css'
 import ConfirmDetails, { type QuoteData, type requestDataProps } from '../components/app/ConfirmDetails'
-import 'react-responsive-modal/styles.css';
 
 import {
   MDBBtn,
