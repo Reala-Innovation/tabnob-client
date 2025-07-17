@@ -55,14 +55,21 @@ max-width: 90%;
 .pc-sideNav{
     width:30vw;
     background-color: var(--primary);
-    min-height: 550px;
+    min-height: 450px;
 
     background-image:url("/bitcoin.jpeg");
     background-size: cover;
     background-position: center;
 }
-.pc-sideNav *:not(button){
+.pc-sideNav span,
+.pc-sideNav div,
+.pc-sideNav h5 {
     color:rgb(222, 222, 231) !important;
+}
+.pc-sideNav,.pc-side-content{
+    transition: all;
+    transition-duration: 400ms;
+
 }
 @media (min-width:900px) {
     .app-content{
@@ -80,15 +87,19 @@ max-width: 90%;
 .pc-sideNav .pc-side-content{
     background: rgba(3, 5, 15, 0.779);
     width: 100%;
-    min-height: 550px;
+    min-height: 450px;
 border-radius: 15px;
   backdrop-filter: blur(10px); /* frosted glass blur */
   -webkit-backdrop-filter: blur(10px); /* Safari support */
     height: 100%;
     padding:16px;
-    
 }
-
+.pc-sideNav .pc-side-content .description{
+    font-size:small;
+    opacity: 0.8;
+    display:inline-block;
+    max-width:80%;
+}
 .pc-sideNav .pc-side-content .back-button{
     color:var(--primary) !important;
 }
@@ -96,4 +107,17 @@ border-radius: 15px;
 
 .dropdown-toggle::after {
   display: none !important;
+}
+.qr-code-container{
+    margin-top: 10px;
+}
+.qr-code-container div{
+margin-top: 10px;
+
+}
+.qr-code-container strong{
+    font-size: 14px;
+}
+.qr-code-container span{
+    font-size: 16px;
 }

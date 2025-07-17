@@ -131,6 +131,26 @@ const isValidAcc =  (num: string | number)=> {
 ) {
 validateBank();
     }
+    if(accountDetails || isValidating || validateError){
+const followHeight=document.querySelector(".pc-sideNav") as HTMLDivElement;
+const followHeightContent=document.querySelector(".pc-side-content") as HTMLDivElement;
+if(followHeight){
+  followHeight.style.minHeight="550px"
+}
+if(followHeightContent){
+  followHeightContent.style.minHeight="550px"
+}
+    }
+    else{
+const followHeight=document.querySelector(".pc-sideNav") as HTMLDivElement;
+const followHeightContent=document.querySelector(".pc-side-content") as HTMLDivElement;
+if(followHeight){
+  followHeight.style.minHeight="450px"
+}
+if(followHeightContent){
+  followHeightContent.style.minHeight="450px"
+}
+    }
   }, [
     accountNumber,
     bank,
@@ -149,10 +169,8 @@ setDataReady(true);
       setDataReady(false);
     }
   },[accountDetails,amount,amountLimits]);
-console.log(dataReady)
   return (
     <MDBContainer className="form-container p-4" style={{ maxWidth: "400px" }}>
-
 
       {error && <span className='error'>{error}</span>}
 

@@ -1,6 +1,6 @@
 import { BiRadioCircleMarked } from "react-icons/bi"; 
 import { BiCheckDouble } from "react-icons/bi"; 
-import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai"; 
+// import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai"; 
 import React from 'react';
 import {
   Box,
@@ -12,6 +12,7 @@ import { MDBBtn } from 'mdb-react-ui-kit';
 
 interface StepData {
   label: string;
+  description:string
 }
 
 interface TransactionStepperProps {
@@ -22,13 +23,13 @@ interface TransactionStepperProps {
 
 const TransactionStepper: React.FC<TransactionStepperProps> = ({ steps, activeStep, setActiveStep }) => {
 
-  const handleNext = () => {
-    setActiveStep((prevActiveStep: any) => prevActiveStep + 1);
-  };
+  // const handleNext = () => {
+  //   setActiveStep((prevActiveStep: any) => prevActiveStep + 1);
+  // };
 
-  const handleBack = () => {
-    setActiveStep((prevActiveStep: any) => prevActiveStep - 1);
-  };
+  // const handleBack = () => {
+  //   setActiveStep((prevActiveStep: any) => prevActiveStep - 1);
+  // };
 
   const handleReset = () => {
     setActiveStep(0);
@@ -39,12 +40,12 @@ const TransactionStepper: React.FC<TransactionStepperProps> = ({ steps, activeSt
     const { active, completed } = props;
 
     if (completed) {
-      return <BiCheckDouble color="green" size={24} />;
+      return <BiCheckDouble className="own-color" color="green" size={24} />;
     }
     if (active) {
-      return <BiRadioCircleMarked color="#270cc3" size={24} />;
+      return <BiRadioCircleMarked className="own-color" color="#563bf0" size={24} />;
     }
-    return <BiRadioCircleMarked color="#d0d0d0" size={24} />;
+    return <BiRadioCircleMarked className="own-color" color="#d0d0d0" size={24} />;
   };
 
   return (
@@ -57,8 +58,12 @@ const TransactionStepper: React.FC<TransactionStepperProps> = ({ steps, activeSt
               <Box sx={{ ml: 3, mb: 2 }}>
                 {activeStep === index && (
                   <>
-                    <div style={{ justifyContent: "flex-start", gap: 10 }} className='d-flex align-items-center justify-content-start'>
-                      <MDBBtn
+                    {activeStep == index && <div style={{ justifyContent: "flex-start", gap: 10 }} className='d-flex align-items-center justify-content-start'>
+                     
+                     
+                     <span className="description">{step?.description}</span>
+
+                      {/* <MDBBtn
                         color="secondary"
                         style={{
                           padding: 5,
@@ -71,14 +76,14 @@ const TransactionStepper: React.FC<TransactionStepperProps> = ({ steps, activeSt
                         onClick={handleBack}
                       >
                         <AiOutlineArrowLeft color="#270cc3" size={20} />
-                      </MDBBtn>
-                      <MDBBtn
+                      </MDBBtn> */}
+                      {/* <MDBBtn
                         style={{ background: "var(--primary)", boxShadow: "none", padding: 5, width: 40, height: 40, borderRadius: 20 }}
                         onClick={handleNext}
                       >
                         {activeStep === steps.length - 1 ? <BiCheckDouble size={20} /> : <AiOutlineArrowRight size={18} />}
-                      </MDBBtn>
-                    </div>
+                      </MDBBtn> */}
+                    </div>}
                   </>
                 )}
               </Box>

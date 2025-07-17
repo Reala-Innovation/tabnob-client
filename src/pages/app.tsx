@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Nav from '../components/nav'
 import "../styles/app.css"
 import BankForm from '../components/app/bankform'
@@ -9,7 +9,6 @@ import { Sheet } from 'react-modal-sheet';
 import 'react-loading-skeleton/dist/skeleton.css'
 import ConfirmDetails, { type QuoteData, type requestDataProps } from '../components/app/ConfirmDetails'
 import 'react-responsive-modal/styles.css';
-import { Modal } from 'react-responsive-modal';
 
 import {
   MDBBtn,
@@ -19,10 +18,11 @@ import {
   MDBModalHeader,
   MDBModalTitle,
   MDBModalBody,
-  MDBModalFooter,
 } from 'mdb-react-ui-kit'
 import api from '../api/api'
 import toast from 'react-hot-toast'
+import RenderQrCode from '../components/app/RenderQrCode'
+import VerifyPayment from '../components/app/VerifyPayment'
 
 
 const TabNobApp:React.FC = () => {
@@ -32,22 +32,21 @@ const TabNobApp:React.FC = () => {
   
     const width=useInnerWidth();
       const [isOpen, setOpen] = useState(false);
-     const steps = [
-    {
-      label: 'Bank Details',
-      onclick:()=>{
-        setOpen(true);
-      }
-    },
-    {
-      label: 'Scan QR Code',
-    //   content: <div>Show QR code here for payment.</div>,
-    },
-    {
-      label: 'Confirmation',
-    //   content: <div>Show confirmation message and receipt details.</div>,
-    },
-  ];
+   const steps = [
+  {
+    label: 'Bank Details',
+    description: 'Enter your Cash App account or bank details to receive your payout.',
+  },
+  {
+    label: 'Scan QR Code',
+    description: 'Use your Bitcoin wallet to scan the QR code and send the exact amount.',
+  },
+  {
+    label: 'Confirmation',
+    description: 'We’ll verify the transaction and confirm once the funds are on the way.',
+  },
+];
+
 
 
   const [loadingQuote,setLoadingQuote]=useState<boolean>(false);
@@ -85,7 +84,18 @@ const TabNobApp:React.FC = () => {
     }
   };
 
+useEffect(() => {
+  const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+    e.preventDefault();
+    e.returnValue = ''; // Required for some browsers
+  };
 
+  window.addEventListener('beforeunload', handleBeforeUnload);
+
+  return () => {
+    window.removeEventListener('beforeunload', handleBeforeUnload);
+  };
+}, []);
   return (<>
         <div className='body'>
   <Nav/>
@@ -120,11 +130,23 @@ const TabNobApp:React.FC = () => {
 </div>} */}
 {width < 900 && <MobileTransactionStepper  activeStep={activeStep} steps={steps}/>}
 
-    <BankForm loading={loadingQuote} onNext={(props)=>{
+    {activeStep==0 && <BankForm loading={loadingQuote} onNext={(props)=>{
       setRequestData(props)
       setOpen(true);
       fetchQuote(props);
-    }}/>
+    }}/>}
+
+{activeStep == 1 && <RenderQrCode onSuccess={()=>{
+setActiveStep(activeStep+1);
+}} quoteData={quoteData as QuoteData}/>}
+    
+
+    {activeStep == 2 && <VerifyPayment
+onSuccess={()=>{
+setActiveStep(activeStep+1);
+}} quoteData={quoteData as QuoteData}
+    
+    />}
     </div>
     </div>
     <br/>
@@ -137,8 +159,11 @@ const TabNobApp:React.FC = () => {
       {width < 900 ? <Sheet snapPoints={[800]} initialSnap={1}  isOpen={(isOpen && quoteData) ? true:false} onClose={() => setOpen(false)}>
         <Sheet.Container>
           <Sheet.Header />
-          <Sheet.Content>{(requestData && quoteData) && <ConfirmDetails quoteData={quoteData} requestData={requestData} onConfirm={()=>{
-            console.log("on confirm ok")
+          <Sheet.Content>{(requestData && quoteData) && <ConfirmDetails 
+           quoteData={quoteData} requestData={requestData} onConfirm={()=>{
+          setActiveStep(activeStep+1)
+          setOpen(false);
+            
           }} onClose={()=>{setOpen(false)}}/>}</Sheet.Content>
         </Sheet.Container>
         <Sheet.Backdrop />
@@ -152,7 +177,8 @@ const TabNobApp:React.FC = () => {
             </MDBModalHeader>
             <MDBModalBody>
               {(requestData && quoteData) && <ConfirmDetails quoteData={quoteData} requestData={requestData} onConfirm={()=>{
-            console.log("on confirm ok")
+          setActiveStep(activeStep+1)
+          setOpen(false);
           }} onClose={()=>{setOpen(false)}}/>}
             </MDBModalBody>
 

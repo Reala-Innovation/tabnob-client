@@ -96,7 +96,7 @@ const ConfirmDetailsContent: React.FC<QuoteContentProps> = ({ onClose, onConfirm
           </div>
           
           <button className="confirm-button" onClick={()=>onConfirm(quoteData)}>
-            Confirm Transaction
+            Generate Invorce
           </button>
           
           <button className="cancel-button" onClick={onClose}>
