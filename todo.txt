@@ -6,6 +6,7 @@
     assets and corrency - capital
 
 ]
+on mobile transactions should be on cards
 
 view details
 ref -  quote id
