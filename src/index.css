@@ -76,3 +76,13 @@ max-width: 100vw;
 .footer{
   padding-right:15px;
 }
+
+
+
+table th{
+  font-weight:bold;
+}
+
+table th,table td{
+  text-align: center !important;
+}

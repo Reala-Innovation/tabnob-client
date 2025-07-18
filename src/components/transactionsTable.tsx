@@ -97,13 +97,10 @@ const TransactionTable: React.FC = () => {
           <MDBTableHead>
             <tr>
               <th>REFERENCE</th>
-              <th>SATS</th>
+              <th>SATS AMOUNT</th>
               <th>STATUS</th>
-              <th>CREATED</th>
-              <th>UPDATED</th>
-              <th>AMOUNT</th>
-              <th>SETTLEMENT</th>
-              <th>SOURCE</th>
+              <th>DATE</th>
+              <th>SETTLEMENT AMOUNT</th>
               <th>ASSET</th>
               <th>CHAIN</th>
               <th>CURRENCY</th>
@@ -114,7 +111,7 @@ const TransactionTable: React.FC = () => {
             {loading ? (
               [...Array(5)].map((_, i) => (
                 <tr key={i}>
-                  {Array(12).fill(0).map((_, idx) => (
+                  {Array(9).fill(0).map((_, idx) => (
                     <td key={idx}><Skeleton width={50} height={20} /></td>
                   ))}
                 </tr>
@@ -129,14 +126,11 @@ const TransactionTable: React.FC = () => {
                       {(item?.status=="pending_address_deposit" ? "pending":item?.status)}
                     </MDBBadge>
                   </td>
-                  <td>{new Date(item.createdAt).toLocaleString()}</td>
                   <td>{new Date(item.updatedAt).toLocaleString()}</td>
-                  <td>{formatToDollars(item.amount,true)}</td>
                   <td>{formatToNaira(item.settlementAmount,true)}</td>
-                  <td>{item.source}</td>
-                  <td>{item.fromAsset}</td>
-                  <td>{item.chain}</td>
-                  <td>{item.toCurrency}</td>
+                  <td>{item.fromAsset.toUpperCase()}</td>
+                  <td>{item.chain.toUpperCase()}</td>
+                  <td>{item.toCurrency.toUpperCase()}</td>
                   <td style={{ color: 'orange', cursor: 'pointer' }}>View Details</td>
                 </tr>
               ))

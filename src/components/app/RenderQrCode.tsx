@@ -244,6 +244,8 @@ if(followHeightContent){
           >
             {pleaseWait ? "Please wait...":"I've Paid"}
           </MDBBtn>
+          <br/><br/>
+          <MDBBtn color="link">contact support</MDBBtn>
         </div>
       )}
     </MDBContainer>

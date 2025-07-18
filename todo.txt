@@ -1,0 +1,15 @@
+1 - email required for value above 500k and endpoint should be provided for that
+2 - transactions page [
+
+    updated and created == date the updated at should be the value
+    remove the source field
+    assets and corrency - capital
+
+]
+
+view details
+ref -  quote id
+status  - amount in usd
+sats amount - btc amounts
+btc rates - NGN exchange rates
+date - lightining address
