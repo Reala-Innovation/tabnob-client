@@ -12,7 +12,7 @@ import {
 } from 'mdb-react-ui-kit';
 import api from '../api/api';
 import { getErrorMessage } from '../logics/getErrorMesage';
-import { formatToDollars, formatToNaira } from '../logics/date';
+import { formatToNaira } from '../logics/date';
 import { Skeleton } from '@mui/material';
 
 interface TransactionItem {

@@ -6,7 +6,7 @@ import { MDBBtn } from "mdb-react-ui-kit";
 import { useInnerWidth } from '../hooks/useInnerWidth';
 import { useNavigate } from 'react-router-dom';
 
-const Nav: React.FC<{startedButtonText?:string,startedClick?:()=>void,isApp:boolean}> = ({
+const Nav: React.FC<{startedButtonText?:string,startedClick?:()=>void,isApp?:boolean}> = ({
   startedButtonText,
   startedClick,
   isApp
