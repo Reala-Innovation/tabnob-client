@@ -9,7 +9,7 @@ background: red !important;
 } */
 @media (min-width:900px) {
 .app{
-    max-height: 600px;
+    max-height: 800px;
 }
 }
 .app .content{
@@ -55,7 +55,7 @@ max-width: 90%;
 .pc-sideNav{
     width:30vw;
     background-color: var(--primary);
-    min-height: 450px;
+    min-height: 550px;
 
     background-image:url("/bitcoin.jpeg");
     background-size: cover;
@@ -87,7 +87,7 @@ max-width: 90%;
 .pc-sideNav .pc-side-content{
     background: rgba(3, 5, 15, 0.779);
     width: 100%;
-    min-height: 450px;
+    min-height: 550px;
 border-radius: 15px;
   backdrop-filter: blur(10px); /* frosted glass blur */
   -webkit-backdrop-filter: blur(10px); /* Safari support */

@@ -1,5 +1,5 @@
 import { AiFillCaretDown } from "react-icons/ai"; 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import {
   MDBContainer,
   MDBInput,
@@ -18,6 +18,7 @@ import {
   MDBDropdownMenu,
   MDBDropdownItem
 } from 'mdb-react-ui-kit';
+import {  validateEmail } from "../../logics/DateFunc";
 
 
 const BankForm: React.FC<{onNext:(props:any)=>void,loading:boolean}> = ({onNext,loading}) => {
@@ -25,10 +26,11 @@ const BankForm: React.FC<{onNext:(props:any)=>void,loading:boolean}> = ({onNext,
   const [bank, setBank] = useState<{ name: string; code: string } | null>(null);
   const [accountNumber, setAccountNumber] = useState("");
   const [amount, setAmount] = useState(sessionStorage.amount||"");
-
+  const [email,setEmail]=useState<string>("");
   const [banks, setBanks] = useState<{ name: string; code: string }[]>([]);
   const [loading_banks, set_loading_banks] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
+  const [showEmailField,setShowEmailField]=useState<boolean>(false);
 
   const getBanks = async () => {
     try {
@@ -135,20 +137,20 @@ validateBank();
 const followHeight=document.querySelector(".pc-sideNav") as HTMLDivElement;
 const followHeightContent=document.querySelector(".pc-side-content") as HTMLDivElement;
 if(followHeight){
-  followHeight.style.minHeight="550px"
+  followHeight.style.minHeight="650px"
 }
 if(followHeightContent){
-  followHeightContent.style.minHeight="550px"
+  followHeightContent.style.minHeight="650px"
 }
     }
     else{
 const followHeight=document.querySelector(".pc-sideNav") as HTMLDivElement;
 const followHeightContent=document.querySelector(".pc-side-content") as HTMLDivElement;
 if(followHeight){
-  followHeight.style.minHeight="450px"
+  followHeight.style.minHeight="550px"
 }
 if(followHeightContent){
-  followHeightContent.style.minHeight="450px"
+  followHeightContent.style.minHeight="550px"
 }
     }
   }, [
@@ -161,19 +163,44 @@ if(followHeightContent){
   const [dataReady,setDataReady]=useState<boolean>(false);
 
 
+
   useEffect(()=>{
-    if(accountDetails && (parseFloat(amount||"0") >= (amountLimits?.min||0) && parseFloat(amount||"0") <= (amountLimits?.max||0))){
+// email toglle
+   if(amount >= (500*1000)){
+      if(!showEmailField)setShowEmailField(true);
+    }
+    else{
+if(showEmailField)setShowEmailField(false)
+    }
+  },[amount])
+  useEffect(()=>{
+    if(accountDetails 
+      
+      && 
+      
+      (parseFloat(amount||"0") >= (amountLimits?.min||0) 
+      
+      && 
+    
+      parseFloat(amount||"0") <= (amountLimits?.max||0))
+    
+  
+    ){
 setDataReady(true);
     }
     else{
       setDataReady(false);
     }
+
+ 
   },[accountDetails,amount,amountLimits]);
+  const mostHaveEmail=useMemo(()=>{
+return showEmailField && !validateEmail(email)
+  },[showEmailField,email])
+  console.log({mostHaveEmail,dataReady})
   return (
     <MDBContainer className="form-container p-4" style={{ maxWidth: "400px" }}>
-
       {error && <span className='error'>{error}</span>}
-
       <label className="form-label">Choose country</label>
       <MDBDropdown>
         <MDBDropdownToggle
@@ -247,22 +274,34 @@ setDataReady(true);
         value={amount}
         onChange={(e) => setAmount(e.target.value)}
       />
+      
+        <label className="form-label mt-3 d-flex " style={{gap:10}}>
+        Email Address ({!showEmailField ? "Optional":"required"})
+           </label>
+      <MDBInput
+        type="email"
+       placeholder="Enter email address"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+      />
+      
       <MDBBtn
         className="w-100 mt-4"
         onClick={()=>onNext({
           bank,
           accountDetails,
           accountNumber,
-          amount
+          amount,
+          email
         })}
         style={{
           borderRadius:30,
           background: "linear-gradient(30deg, var(--gold), var(--primary))",
           border: "none",
-          opacity:(!dataReady || loading) ? 0.5:1
+          opacity:(!dataReady || mostHaveEmail || loading) ? 0.5:1
 
         }}
-        disabled={!dataReady || loading}
+        disabled={!dataReady || mostHaveEmail || loading}
       >
        {loading ? <>processing...<ClipLoader size={14}/></>:" Next"}
       </MDBBtn>

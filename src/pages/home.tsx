@@ -6,10 +6,11 @@ import AboutUs from '../components/aboutUs'
 import Faqs from '../components/faqs'
 import Footer from '../Footer'
 import { usePWAInstallPrompt } from '../hooks/usePWAInstallPrompt'
+import { useNavigate } from 'react-router-dom'
 
 const Home:React.FC = () => {
    const { deferredPrompt, promptInstall, isStandalone } = usePWAInstallPrompt();
-
+const navigate=useNavigate();
   useEffect(() => {
     if (deferredPrompt && !isStandalone) {
       // Immediately show prompt
@@ -18,7 +19,9 @@ const Home:React.FC = () => {
   }, [deferredPrompt, isStandalone]);
   return (<>
   <div className='body'>
-  <Nav/>
+  <Nav startedButtonText='Get Started' startedClick={()=>{
+    navigate("/app")
+  }}/>
   <div style={{
     padding:10
   }}>

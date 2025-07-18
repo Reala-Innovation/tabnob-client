@@ -6,7 +6,11 @@ import { MDBBtn } from "mdb-react-ui-kit";
 import { useInnerWidth } from '../hooks/useInnerWidth';
 import { useNavigate } from 'react-router-dom';
 
-const Nav: React.FC = () => {
+const Nav: React.FC<{startedButtonText?:string,startedClick?:()=>void,isApp:boolean}> = ({
+  startedButtonText,
+  startedClick,
+  isApp
+}) => {
   const [open, setOpen] = useState<boolean>(false);
 const width=useInnerWidth();
 const [isDarkArea,setIsDarkArea]=useState<boolean>(false);
@@ -33,7 +37,7 @@ window.onscroll=(()=>{
 },[]);
 const navigate=useNavigate();
   return (
-    <div className={`nav-item ${isDarkArea ? 'dark-area':''}`}>
+    <div style={isApp && width > 900 ? {position:"relative"}:{}} className={`nav-item ${isDarkArea ? 'dark-area':''}`}>
       <div className="nav-item-content">
         <Icon />
         
@@ -45,10 +49,12 @@ const navigate=useNavigate();
           <MDBBtn  color='link'>FAQs</MDBBtn>
 
           <MDBBtn  color='primary' className='get-started'
-            onClick={()=>{
-          navigate("/Transactions")
+             onClick={startedClick ? startedClick:()=>{
+          navigate("/app")
         }}
-           rounded>Transactions</MDBBtn>
+           rounded>
+            {startedButtonText||"Get Started"}
+           </MDBBtn>
 
          
            
@@ -68,10 +74,10 @@ const navigate=useNavigate();
 <br/>
 <br/>
             <MDBBtn  color='secondary'  style={{textAlign:"center",color:"white"}} className='get-started'
-            onClick={()=>{
-          navigate("/Transactions")
+            onClick={startedClick ? startedClick:()=>{
+          navigate("/app")
         }}
-           rounded>Transactions</MDBBtn>
+           rounded>{startedButtonText||"Get Started"}</MDBBtn>
            <br/>
                 <MDBBtn  color='warning'  style={{textAlign:"center",color:"white"}} className='get-started'
             onClick={()=>{

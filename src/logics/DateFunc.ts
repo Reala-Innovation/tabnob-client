@@ -64,3 +64,7 @@ export function formatDate_Name(date=new Date()) {
     return true;
   };
   
+  export function validateEmail(email: string): boolean {
+  const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return regex.test(email.trim().toLowerCase());
+}

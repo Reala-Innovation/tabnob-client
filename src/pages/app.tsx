@@ -21,6 +21,7 @@ import api from '../api/api'
 import toast from 'react-hot-toast'
 import RenderQrCode from '../components/app/RenderQrCode'
 import VerifyPayment from '../components/app/VerifyPayment'
+import { useNavigate } from 'react-router-dom'
 
 
 const TabNobApp:React.FC = () => {
@@ -59,7 +60,7 @@ const TabNobApp:React.FC = () => {
   "accountNumber": requestData?.accountDetails.account_number,
   "chain": "lightning",
   "settlementAmount":parseFloat(requestData?.amount||"0"),
-//   "email": "demo123@gmail.com"
+   ...(requestData?.email ? {email:requestData?.email}:{})
    })
    if(res?.data?.success){
       const mockData: QuoteData =res?.data.data
@@ -94,28 +95,32 @@ useEffect(() => {
     window.removeEventListener('beforeunload', handleBeforeUnload);
   };
 }, []);
+const navigate=useNavigate();
   return (<>
         <div className='body'>
-  <Nav/>
+  <Nav isApp startedButtonText='Transactions' startedClick={()=>{
+navigate("/Transactions")
+  }}/>
 
+
+{width  < 900 && <>
   <br/>
 <br/>
 <br/>
 <br/>
-{width  < 900 && <div style={{padding:"5px 20px",textAlign:"center",fontFamily:"'Poppins',system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif"}}>
+<div style={{padding:"5px 20px",textAlign:"center",fontFamily:"'Poppins',system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif"}}>
 <span>Convert Bitcoin to cash instantly — fast, secure, and hassle-free.
 </span>
 </div>
-
+</>
 }
 <br/>
 
-{width > 900 && <>
+{/* {width > 900 && <>
+
 
 <br/>
-<br/>
-<br/>
-</>}
+</>} */}
   <div className='app' style={{
     padding:10
   }}>
@@ -151,6 +156,11 @@ setActiveStep(activeStep+1);
     <br/>
   </div>
     </div>
+{width > 900 && <>
+<br/>
+<br/>
+<br/>
+</>}
 
 
 

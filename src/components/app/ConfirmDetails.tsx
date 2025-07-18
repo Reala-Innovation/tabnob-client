@@ -37,6 +37,7 @@ export interface requestDataProps{
   };
   accountNumber: string;
   amount: string;
+  email:string
 }
 interface QuoteContentProps {
   onClose: () => void;
