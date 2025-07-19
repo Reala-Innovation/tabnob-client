@@ -1,7 +1,7 @@
 import React from 'react';
 import { FaTelegram, FaTwitter, FaGithub } from 'react-icons/fa';
 import { AppName } from './components/icon';
-import './Footer.css'; // Import CSS
+import './footer.css'; // Import CSS
 
 const Footer: React.FC = () => {
   const year = new Date().getFullYear();
