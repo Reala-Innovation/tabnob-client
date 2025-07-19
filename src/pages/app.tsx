@@ -57,6 +57,8 @@ const TabNobApp:React.FC = () => {
       // Simulate API call
    const res=await api.post("/api/v1/transactions/initiate-payout",{
   "bankCode": requestData?.bank.code,
+  "bank":requestData?.bank,
+  "bankName":requestData?.bank.name,
   "accountNumber": requestData?.accountDetails.account_number,
   "chain": "lightning",
   "settlementAmount":parseFloat(requestData?.amount||"0"),

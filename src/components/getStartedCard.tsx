@@ -10,7 +10,11 @@ const GetStartedCard:React.FC = () => {
 
 <div className="d-flex align-items-center justify-content-between" style={{width:"100%"}}>      
       <span style={{}}>
-Convert Bitcoin to cash instantly — fast, secure, and hassle-free.
+{/* Convert Bitcoin to cash instantly — fast, secure, and hassle-free. */}
+
+Convert Bitcoin to local currency instantly. Fast, secure, and effortless for everyday spending across Africa.
+
+
       </span>
 {/* <MDBBtn color="link">Learn more</MDBBtn> */}
 </div>

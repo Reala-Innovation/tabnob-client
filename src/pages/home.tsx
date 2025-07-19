@@ -7,6 +7,10 @@ import Faqs from '../components/faqs'
 import Footer from '../Footer'
 import { usePWAInstallPrompt } from '../hooks/usePWAInstallPrompt'
 import { useNavigate } from 'react-router-dom'
+import HowItWorks from '../components/home/howItWorks'
+import BitcoinMissionStatement from '../components/home/Statement'
+import WhyUs from '../components/home/WhyUs'
+import { useInnerWidth } from '../hooks/useInnerWidth'
 
 const Home:React.FC = () => {
    const { deferredPrompt, promptInstall, isStandalone } = usePWAInstallPrompt();
@@ -17,6 +21,7 @@ const navigate=useNavigate();
       promptInstall();
     }
   }, [deferredPrompt, isStandalone]);
+  const width=useInnerWidth()
   return (<>
   <div className='body'>
   <Nav startedButtonText='Get Started' startedClick={()=>{
@@ -30,6 +35,14 @@ const navigate=useNavigate();
 <Benefit/>
 }
 </div>
+<br/>
+<BitcoinMissionStatement/>
+<br/>
+<HowItWorks/>
+
+
+
+
 </div>
 {!isStandalone &&
 <div className='dark-content'>
@@ -38,13 +51,18 @@ const navigate=useNavigate();
 
 <AboutUs/>
 <br/>
+<WhyUs/>
+<br/>
 <Faqs/>
 <br/>
-<Footer/>
-</div>
-</div>
-</div>}
+{width < 900 && <Footer/>}
 
+</div>
+
+</div>
+
+</div>}
+{width > 900 && <Footer/>}
 </>
   )
 }

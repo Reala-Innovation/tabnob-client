@@ -18,7 +18,12 @@ const Presenter:React.FC = () => {
 <br/>
 <br/>
 </>}
-      <h1 data-aos={"fade-up"} style={{fontSize:40}} className='headingFont'>Send Bitcoin & Receive Instantly Cash Out to Bank</h1>
+      <h1 data-aos={"fade-up"} style={{fontSize:40}} className='headingFont'>
+        Spend Bitcoin. Keep Your Bitcoin.
+
+        {/* Send Bitcoin & Receive Instantly Cash Out to Bank */}
+        
+        </h1>
 <br/><br/>
 <GetStartedCard/>
     </div>

@@ -5,23 +5,23 @@ function Benefit() {
 const cards = [
   {
     icon: "/user.png",
-    name: "Send Without Signing Up",
-    text: "Skip the sign-up process and start sending money instantly—no accounts, no delays.",
+    name: "Instant Bank Transfers",
+    text: "Confirm the Bitcoin send; recipient’s bank is notified in seconds.",
   },
   {
-  icon: "/user.png",
-  name: "Real-Time Delivery",
-  text: "Transfers are processed instantly — no waiting, just fast confirmation to bank accounts.",
+  icon: "/spend.png",
+  name: "Spend Without Selling",
+  text: " Use your Bitcoin when you need cash without liquidating your entire stack.",
 },
   {
     icon: "/zero.png",
-    name: "Zero Fees, Always",
-    text: "Send money without hidden charges — what you send is exactly what they receive.",
+    name: "No Hidden Fees ",
+    text: "What you send is what they receive. We show the exact rate up front",
   },
   {
     icon: "/map.png",
-    name: "Borderless Bank Transfers",
-    text: "Send Bitcoin to any supported country with instant bank transfers—no limits, no hassle.",
+    name: "Borderless & Simple",
+    text: "Pay anyone across supported African countries — no accounts, no friction.",
   },
 ];
 
@@ -31,7 +31,7 @@ const cards = [
          data-aos-offset="300"
      data-aos-duration="500"
       
-      className='headingFont-h3' style={{padding:"0px 10px"}}>The <AppName/> advantage</h3>
+      className='headingFont-h3' style={{padding:"0px 10px"}}><AppName/> advantage</h3>
       <div className='card-container d-flex' style={{marginTop:-24}}>
 
 {cards.map((e,i)=>(<div key={i} data-aos={`${i%2==0 ? "fade-left":"fade-right"}`} className='benefit-card'>
