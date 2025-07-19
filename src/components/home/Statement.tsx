@@ -1,7 +1,7 @@
 import React from "react";
 import "./statement.css";
 
-const BitcoinMissionStatement = () => {
+const BitcoinMissionStatement:React.FC = () => {
   return (
     <div className="mission-wrapper">
       <div className="bitcoin-mission-container">
