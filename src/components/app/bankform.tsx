@@ -24,6 +24,7 @@ import { useInnerWidth } from "../../hooks/useInnerWidth";
 
 const BankForm: React.FC<{onNext:(props:any)=>void,loading:boolean}> = ({onNext,loading}) => {
   const [country, setCountry] = useState("Nigeria");
+  const [chain,setChain]=useState<string>("LIGHTNING")
   const [bank, setBank] = useState<{ bankName: string; bankCode: string } | null>(null);
   const [accountNumber, setAccountNumber] = useState("");
   const [amount, setAmount] = useState(sessionStorage.amount||"");
@@ -202,6 +203,8 @@ return showEmailField && !validateEmail(email)
     return (
     <MDBContainer className="form-container p-4" style={{ maxWidth: "400px" }}>
       {error && <span className='error'>{error}</span>}
+      <div className="d-flex align-items-center" style={{gap:10}}>
+        <div style={{width:"48%"}}>
       <label className="form-label">Choose country</label>
       <MDBDropdown>
         <MDBDropdownToggle
@@ -229,7 +232,43 @@ return showEmailField && !validateEmail(email)
           </MDBDropdownItem>
         </MDBDropdownMenu>
       </MDBDropdown>
+</div>
 
+  <div style={{width:"48%"}}>
+      <label className="form-label">Chain</label>
+      <MDBDropdown>
+        <MDBDropdownToggle
+          tag="button"
+          className="btn btn-outline-primary"
+          style={{
+            borderRadius:4,
+            width:"100%",
+            height:40,
+            display:'flex',
+            borderColor:'#e0d8d8',
+            justifyContent:"space-between",
+            alignItems:'center'
+          }}
+        >
+          <span style={{color:"#757171"}}>{chain}</span>
+  {/* <FaChevronDown size={16} color="#757171" /> */}
+  <AiFillCaretDown style={{transform:"translate(6px,0px)"}} size={12} color="#737171" />
+        </MDBDropdownToggle>
+        <MDBDropdownMenu style={{
+          width:"100%"
+        }}>
+          <MDBDropdownItem link onClick={() => setChain('LIGHTNING')}>
+            LIGHTNING
+          </MDBDropdownItem>
+        </MDBDropdownMenu>
+      </MDBDropdown>
+</div>
+
+
+
+
+
+</div>
 
       <label className="form-label mt-3">
         {loading_banks && <ClipLoader size={20} />} Select Bank
