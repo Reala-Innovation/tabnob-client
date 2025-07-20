@@ -27,12 +27,12 @@ export interface QuoteData {
 
 export interface requestDataProps{
      bank: {
-    name: string;
-    code: string;
+    bankName: string;
+    bankCode: string;
   };
   accountDetails: {
-    account_number: string;
-    account_name: string;
+    accountNumber: string;
+    accountName: string;
     bank_id: number;
   };
   accountNumber: string;
