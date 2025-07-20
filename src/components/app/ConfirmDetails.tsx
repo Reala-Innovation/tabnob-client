@@ -27,12 +27,12 @@ export interface QuoteData {
 
 export interface requestDataProps{
      bank: {
-    name: string;
-    code: string;
+    bankName: string;
+    bankCode: string;
   };
   accountDetails: {
-    account_number: string;
-    account_name: string;
+    accountNumber: string;
+    accountName: string;
     bank_id: number;
   };
   accountNumber: string;
@@ -98,9 +98,9 @@ const ConfirmDetailsContent: React.FC<QuoteContentProps> = ({ onClose, onConfirm
             
             <div className="bank-details">
               <p className="detail-label">Bank Details:</p>
-              <p className="detail-value">Name : {requestData?.accountDetails?.account_name}</p>
+              <p className="detail-value">Name : {requestData?.accountDetails?.accountName}</p>
               <p className="detail-value">Account : {quoteData.destination.accountNumber}</p>
-              <p className="detail-value">Bank  : {requestData?.bank?.name}</p>
+              <p className="detail-value">Bank  : {requestData?.bank?.bankName}</p>
             </div>
             
             <p className="expiry-text">{quoteData.expiresInText}</p>

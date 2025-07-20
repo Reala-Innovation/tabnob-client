@@ -51,15 +51,16 @@ const TabNobApp:React.FC = () => {
   const [loadingQuote,setLoadingQuote]=useState<boolean>(false);
   
   const fetchQuote = async (requestData:requestDataProps) => {
+    console.log("request data is:", requestData);
     try {
       setLoadingQuote(true);
        setQuoteData(null);
       // Simulate API call
    const res=await api.post("/api/v1/transactions/initiate-payout",{
-  "bankCode": requestData?.bank.code,
-  "bank":requestData?.bank,
-  "bankName":requestData?.bank.name,
-  "accountNumber": requestData?.accountDetails.account_number,
+  "bankCode": requestData?.bank.bankCode,
+  // "bank":requestData?.bank,
+  "bankName":requestData?.bank.bankName,
+  "accountNumber": requestData?.accountDetails.accountNumber,
   "chain": "lightning",
   "settlementAmount":parseFloat(requestData?.amount||"0"),
    ...(requestData?.email ? {email:requestData?.email}:{})
