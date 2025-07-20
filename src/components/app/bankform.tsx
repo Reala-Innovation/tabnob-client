@@ -37,7 +37,6 @@ const BankForm: React.FC<{onNext:(props:any)=>void,loading:boolean}> = ({onNext,
       set_loading_banks(true);
       const res = await api.get("/api/v1/transactions/bank-lists");
       const data = res.data.data;
-      console.log("list of banks is:", data);
       if (data) {
         setBanks(data);
       } else {

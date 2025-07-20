@@ -26,7 +26,7 @@ import { useNavigate } from 'react-router-dom'
 
 const TabNobApp:React.FC = () => {
   const [activeStep,setActiveStep]=useState<number>(0)
-  const [requestData,setRequestData]=useState<requestDataProps>();
+  const [requestData,setRequestData]=useState<requestDataProps | null>();
     const [quoteData, setQuoteData] = useState<QuoteData | null>(null);
   
     const width=useInnerWidth();
@@ -98,6 +98,7 @@ useEffect(() => {
     window.removeEventListener('beforeunload', handleBeforeUnload);
   };
 }, []);
+console.log(activeStep);
 const navigate=useNavigate();
   return (<>
         <div className='body'>
@@ -153,6 +154,33 @@ setActiveStep(activeStep+1);
 }} quoteData={quoteData as QuoteData}
     
     />}
+     {activeStep == 3 && (
+  <div style={{ padding: 16, textAlign: 'center' }}>
+
+<div style={{padding:20}} className='d-flex align-items-center justify-content-center'>
+<img src='/check.png' style={{width:100,height:100,borderRadius:50}}/>
+  </div>
+
+    <h3 className='headingFont-h3'> Thank You for Working with Tabnob!</h3>
+    <p>
+      Your transaction has been successfully completed. We're glad to be part of your journey in sending and receiving money seamlessly.
+    </p>
+  
+    <MDBBtn rounded color="primary" onClick={() => {
+      // Reset or navigate to start
+      setActiveStep(0);
+      setQuoteData(null);
+      setRequestData(null);
+
+    }}>
+      Start New Transaction
+    </MDBBtn>
+    <br />
+    <br />
+  </div>
+)}
+
+
     </div>
     </div>
     <br/>

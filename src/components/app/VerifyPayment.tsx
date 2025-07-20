@@ -1,6 +1,6 @@
 
 import { MDBBadge, MDBBtn, MDBContainer } from 'mdb-react-ui-kit';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import type { QuoteData } from './ConfirmDetails';
 import api from '../../api/api';
 // import animation from './loader.json'
@@ -11,7 +11,7 @@ import { formatToDollars, formatToNaira } from '../../logics/date';
 import { getErrorMessage } from '../../logics/getErrorMesage';
 // import Lottie from '../../lib/LotieWeb';
 import { MoonLoader } from 'react-spinners';
-
+import { toPng } from 'html-to-image';
 export interface props {
   quoteData: QuoteData;
   onSuccess: () => void;
@@ -104,7 +104,7 @@ const VerifyPayment: React.FC<props> = ({ quoteData, onSuccess }) => {
   const [error, setError] = useState<string>('');
   const [data, setData] = useState<TransactionProps>();
   const [copied,setCopied]=useState<boolean>(false);
-
+const [downloading,setDownloading]=useState<boolean>(false);
   const fetchDetails = async () => {
     try {
       setLoading(true);
@@ -149,6 +149,28 @@ if(followHeightContent){
   : status === "failed"
   ? "danger"
   :status=="expired"? "danger": "secondary"; // default fallback
+
+
+
+   const componentRef = useRef<HTMLDivElement>(null);
+
+
+
+
+  const handleDownloadImage = async () => {
+  if (componentRef.current) {
+      try {
+        const dataUrl = await toPng(componentRef.current);
+        const link = document.createElement('a');
+        link.download = 'receipt.png';
+        link.href = dataUrl;
+        link.click();
+      } catch (error) {
+        console.error('Image download failed:', error);
+      }
+    }
+  };
+
   return (
     <MDBContainer className="form-container p-4" style={{ maxWidth: '400px' }}>
       {loading  && (
@@ -183,6 +205,10 @@ if(followHeightContent){
 
       {!loading && data && (
         <div className="text-center">
+<div className='' style={{
+  background:"white"
+}} ref={componentRef}>
+
         {!loading && data && (
   <div className="text-start">
 
@@ -236,18 +262,21 @@ if(followHeightContent){
 
   </div>
 )}
-
+</div>
              <MDBBtn
                    style={{width:"100%"}}
                      className="mt-3"
                      color="success"
-                     onClick={()=>{
+                     onClick={async ( )=>{
+                      setDownloading(true);
+                     await handleDownloadImage()
                         onSuccess();
-                        toast.error("download receipts not ok")
+                        toast.error("download receipts not completed")
+                      setDownloading(false);
                      }}
                      rounded
                    >
-                 Download receipt
+                 {downloading? "Please wait..." :"Download receipt"}
                    </MDBBtn>
           </div>
 

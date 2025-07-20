@@ -8,8 +8,8 @@ const Test:React.FC = () => {
         try{
             setLoading(true);
 const res=await api.post(`/api/v1/transactions/simulate-address-deposite-test`,{
-  "address": "lnbt2596-mocked-5f519f22b3269324fb64540b51435d3b4b1992f244bf1f2ba72dec1dacafdd14ddfb297780c14c1cdf02c07f7a317961221a03e4b0e145df7d15283207382c4338db328604acqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq47d2eb6bfa38d97b6d6fec702eb8fe099ddc9a5092a7a70d3b5a434167d56179fa54bba82a10a28124e83f58f9d638d27bf7c422cf9b5599f1df5aaaf503503a8351299925d5",
-  "amount": "2596"
+  "address": "lnbt2596-mocked-ba441d7cef1bbfb9a3ec212b4cbf6299a4e4b42aa14eef1b35e891ab823309181e1e9a185bb4ac2c324208854caa7adc1e42c508e235460df8b856a3b87602c66c341a7a06d2qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqcfb0fbe102f8fd9b43cb8fb0ad9c8e0cd4812bdb3bba10146abf240c6b944f3118f48f169e3fdb97678daf0d5e39dbe39ed8fcd8200abbafc81b0b4c19f815e47a41643f4f46",
+    "amount": "2596"
 })
 console.log(res.data);
         }
