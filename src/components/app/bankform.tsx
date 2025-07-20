@@ -19,6 +19,7 @@ import {
   MDBDropdownItem
 } from 'mdb-react-ui-kit';
 import {  validateEmail } from "../../logics/DateFunc";
+import { useInnerWidth } from "../../hooks/useInnerWidth";
 
 
 const BankForm: React.FC<{onNext:(props:any)=>void,loading:boolean}> = ({onNext,loading}) => {
@@ -197,7 +198,8 @@ setDataReady(true);
   const mostHaveEmail=useMemo(()=>{
 return showEmailField && !validateEmail(email)
   },[showEmailField,email])
-  return (
+  const width=useInnerWidth();
+    return (
     <MDBContainer className="form-container p-4" style={{ maxWidth: "400px" }}>
       {error && <span className='error'>{error}</span>}
       <label className="form-label">Choose country</label>
@@ -264,9 +266,9 @@ return showEmailField && !validateEmail(email)
       />
 {(isValidating ||validateError|| (bank && accountDetails )) && <AccountDetailsCard error={validateError} bank={bank} bankDetails={accountDetails} state={isValidating ? "loading":accountDetails ? "user":"error"}/>}
 
-      <label className="form-label mt-3 d-flex " style={{gap:10}}>
-        Amount {amountLimits ? <span style={{ color: "#9a9a9a" }}>({formatToNaira(amountLimits.min,true)} - {formatToNaira(amountLimits.max,true)})</span>:<><Skeleton width={50} /> - <Skeleton width={50} /></>}
-      </label>
+      <label  className="form-label mt-3 d-flex " style={{gap:10}}>
+        Amount <span style={{fontSize:width < 400 ?14:undefined }} className="d-flex">{amountLimits ? <span style={{ color: "#9a9a9a" }}>({formatToNaira(amountLimits.min,true)} - {formatToNaira(amountLimits.max,true)})</span>:<><Skeleton width={50} /> - <Skeleton width={50} /></>}
+      </span></label>
       <MDBInput
         type="number"
         placeholder="₦"
