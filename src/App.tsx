@@ -7,6 +7,7 @@ import AOS from "aos";
 import TabNobApp from './pages/app';
 import { Toaster } from 'react-hot-toast';
 import TransactionsScreen from './pages/transactionsScreen';
+import Test from './pages/test';
 function App() {
 useEffect(()=>{
      AOS.init({
@@ -20,6 +21,7 @@ useEffect(()=>{
    <Route path="*" element={<Home />} />
    <Route path="/app" element={<TabNobApp/>} />
    <Route path="/Transactions" element={<TransactionsScreen/>} />
+   <Route path="/Test" element={<Test/>} />
         {/* <Route path="/about" element={<About />} /> */}
         </Routes>
           </Router>

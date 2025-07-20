@@ -142,7 +142,7 @@ if(followHeightContent){
   },[data]);
 
   const status=data?.status||""
-  const statusColor = status === "completed"
+  const statusColor = status === "completed" || status==="success"
   ? "success"
   : status === "pending_address_deposit"
   ? "warning"

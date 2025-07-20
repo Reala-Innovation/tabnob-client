@@ -76,8 +76,9 @@ const [showStatus,setShowStatus]=useState<boolean>(false);
         navigate("/Transactions");
 
         }
-        else if(resData?.status==="completed"){
+        else if(resData?.status==="completed"||resData?.status==="success"){
           onSuccess();//go to next once is successful
+        if(timeoutId)clearTimeout(timeoutId)
         }
         else if(data){
         toast.error("Trasaction is "+(resData?.status=="pending_address_deposit" ? "pending":resData?.status)+"" )
