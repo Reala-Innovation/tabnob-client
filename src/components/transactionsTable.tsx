@@ -9,13 +9,30 @@ import {
   MDBPaginationItem,
   MDBPaginationLink,
   MDBInput,
+  MDBBtn,
 } from 'mdb-react-ui-kit';
+
+
+
+import {
+  MDBModal,
+  MDBModalDialog,
+  MDBModalContent,
+  MDBModalHeader,
+  MDBModalTitle,
+  MDBModalBody,
+} from 'mdb-react-ui-kit'
+
+
+
+
 import api from '../api/api';
 import { getErrorMessage } from '../logics/getErrorMesage';
 import { formatToNaira } from '../logics/date';
 import { Skeleton } from '@mui/material';
+import TransactionDetails from './transactionDetails';
 
-interface TransactionItem {
+export interface TransactionItem {
   reference: string;
   satAmount: string;
   status: string;
@@ -64,6 +81,7 @@ const TransactionTable: React.FC = () => {
     fetchTransactions();
   }, []);
 
+  
   const filteredTransactions = transactions.filter(
     (item) =>
       item.reference.toLowerCase().includes(search.toLowerCase()) ||
@@ -75,6 +93,13 @@ const TransactionTable: React.FC = () => {
     (page - 1) * ITEMS_PER_PAGE,
     page * ITEMS_PER_PAGE
   );
+
+  const [openTransactionModal,setOpenTransactionModal]=useState<boolean>(false);
+ const [currentTransaction,setCurrentTransaction]=useState<TransactionItem>();
+  const openDetails=(transaction:TransactionItem)=>{
+setCurrentTransaction(transaction);
+setOpenTransactionModal(true);
+}
 
   return (
     <MDBContainer fluid className="py-4" style={{
@@ -131,7 +156,9 @@ const TransactionTable: React.FC = () => {
                   <td>{item.fromAsset.toUpperCase()}</td>
                   <td>{item.chain.toUpperCase()}</td>
                   <td>{item.toCurrency.toUpperCase()}</td>
-                  <td style={{ color: 'orange', cursor: 'pointer' }}>View Details</td>
+                  <td style={{ color: 'orange', cursor: 'pointer' }}><MDBBtn onClick={()=>{
+                    openDetails(item);
+                  }} color='link'>View Details</MDBBtn></td>
                 </tr>
               ))
             ) : (
@@ -158,6 +185,29 @@ const TransactionTable: React.FC = () => {
           </MDBPagination>
         </div>
       )}
+
+
+
+
+
+
+      <MDBModal open={openTransactionModal} onClose={() =>{
+        setOpenTransactionModal(false);
+      }} tabIndex='-1'>
+        <MDBModalDialog>
+          <MDBModalContent>
+            <MDBModalHeader>
+              <MDBModalTitle>Transaction details</MDBModalTitle>
+              <MDBBtn className='btn-close' color='none' onClick={()=>setOpenTransactionModal(false)}></MDBBtn>
+            </MDBModalHeader>
+          <MDBModalBody>
+{currentTransaction && <TransactionDetails transaction={currentTransaction}/>}
+
+            </MDBModalBody>
+          </MDBModalContent>
+        </MDBModalDialog>
+      </MDBModal>
+
     </MDBContainer>
   );
 };
