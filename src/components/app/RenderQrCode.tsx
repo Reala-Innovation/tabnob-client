@@ -221,16 +221,17 @@ if(followHeightContent){
              <div className="d-flex align-items-center justify-content-between">
             <strong>Payment ETA:</strong> <span>{data.paymentETA}</span>
           </div>
-             <div className="d-flex align-items-center justify-content-between">
+             {status!=="processing" && <div className="d-flex align-items-center justify-content-between">
             <strong>Expires In:</strong> <span>{data.expiresInText}</span>
-        
-          </div>
+          </div>}
           {showStatus &&  <div className="mb-2">
       <strong>Status:</strong> <MDBBadge size={'sm'} color={statusColor}>{(data?.status=="pending_address_deposit" ? "pending":data?.status)}</MDBBadge>
     </div>
 }
           </div>
-
+{status==="processing" && <div style={{padding:20}}>
+  <span>Transaction might take {data.paymentETA} mins please be patient</span>
+  </div>}
           <MDBBtn
           style={{width:"100%"}}
             className="mt-3"
