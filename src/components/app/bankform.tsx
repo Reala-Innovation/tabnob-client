@@ -23,11 +23,11 @@ import {  validateEmail } from "../../logics/DateFunc";
 
 const BankForm: React.FC<{onNext:(props:any)=>void,loading:boolean}> = ({onNext,loading}) => {
   const [country, setCountry] = useState("Nigeria");
-  const [bank, setBank] = useState<{ name: string; code: string } | null>(null);
+  const [bank, setBank] = useState<{ bankName: string; bankCode: string } | null>(null);
   const [accountNumber, setAccountNumber] = useState("");
   const [amount, setAmount] = useState(sessionStorage.amount||"");
   const [email,setEmail]=useState<string>("");
-  const [banks, setBanks] = useState<{ name: string; code: string }[]>([]);
+  const [banks, setBanks] = useState<{ bankName: string; bankCode: string }[]>([]);
   const [loading_banks, set_loading_banks] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
   const [showEmailField,setShowEmailField]=useState<boolean>(false);
@@ -37,6 +37,7 @@ const BankForm: React.FC<{onNext:(props:any)=>void,loading:boolean}> = ({onNext,
       set_loading_banks(true);
       const res = await api.get("/api/v1/transactions/bank-lists");
       const data = res.data.data;
+      console.log("list of banks is:", data);
       if (data) {
         setBanks(data);
       } else {
@@ -87,12 +88,12 @@ const BankForm: React.FC<{onNext:(props:any)=>void,loading:boolean}> = ({onNext,
       setAccountDetails(undefined)
       const res = await api.post("/api/v1/transactions/resolve-account-number",
         {
-          bankCode: bank?.code,
+          bankCode: bank?.bankCode,
           accountNumber: accountNumber
         }
       );
       const res_data = res.data;
-  
+      console.log("account inquiry response is:", res_data);
   if(res_data)    setAccountDetails(res_data.data);
   else {
       setValidateError("account details isn't valid, please try again")
@@ -235,7 +236,7 @@ return showEmailField && !validateEmail(email)
       </label>
       <Autocomplete
         options={banks}
-        getOptionLabel={(option) => option.name}
+        getOptionLabel={(option) => option.bankName}
         onChange={(event, newValue) =>{
            setBank(newValue)
            event.currentTarget
