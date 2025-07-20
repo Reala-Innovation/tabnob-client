@@ -198,7 +198,6 @@ setDataReady(true);
   const mostHaveEmail=useMemo(()=>{
 return showEmailField && !validateEmail(email)
   },[showEmailField,email])
-  console.log({mostHaveEmail,dataReady})
   return (
     <MDBContainer className="form-container p-4" style={{ maxWidth: "400px" }}>
       {error && <span className='error'>{error}</span>}

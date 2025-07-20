@@ -81,6 +81,10 @@ max-width: 100vw;
 }
 
 
+.form-container{
+  text-align: start !important;
+}
+
 
 table th{
   font-weight:bold;

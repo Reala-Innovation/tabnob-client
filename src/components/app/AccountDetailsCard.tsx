@@ -4,7 +4,7 @@ import { MDBBtn } from 'mdb-react-ui-kit'
 import React, { useEffect, useState } from 'react'
 import { BeatLoader } from "react-spinners";
 
-const AccountDetailsCard:React.FC<{state:"user"|"loading"|"error",error?:string,bankDetails?:{account_name:string,account_number:string},bank?:{bankName:string,bankCode:string}| null}> = ({bankDetails,state,error}) => {
+const AccountDetailsCard:React.FC<{state:"user"|"loading"|"error",error?:string,bankDetails?:{accountName:string,accountNumber:string},bank?:{bankName:string,bankCode:string}| null}> = ({bankDetails,state,error}) => {
  const [checked,setChecked]=useState<boolean>(false);
 
 
