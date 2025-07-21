@@ -10,7 +10,7 @@ padding:16px;
 }
 
 @media (max-width:900px) {
-  .footer{
+  .footer.white{
     background: none !important;
   }
 }

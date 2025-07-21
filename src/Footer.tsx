@@ -3,11 +3,11 @@ import { FaTelegram, FaTwitter, FaGithub } from 'react-icons/fa';
 import { AppName } from './components/icon';
 import './footer.css'; // Import CSS
 
-const Footer: React.FC = () => {
+const Footer: React.FC<{white?:boolean}> = ({white}) => {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="footer">
+    <footer className={`footer ${white ? 'white':''}`}>
       <div className="footer-content">
         {/* Top Section */}
         <div className="footer-top">

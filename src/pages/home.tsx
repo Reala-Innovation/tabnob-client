@@ -55,7 +55,7 @@ const navigate=useNavigate();
 <br/>
 <Faqs/>
 <br/>
-{width < 900 && <Footer/>}
+{width < 900 && <Footer white/>}
 
 </div>
 

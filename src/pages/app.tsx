@@ -101,15 +101,16 @@ console.log(activeStep);
 const navigate=useNavigate();
   return (<>
         <div className='body'>
-  <Nav isApp startedButtonText='Transactions' startedClick={()=>{
+  <Nav  startedButtonText='Transactions' startedClick={()=>{
 navigate("/Transactions")
   }}/>
 
-
+<br/>
+<br/>
+<br/>
+<br/>
 {width  < 900 && <>
-  <br/>
-<br/>
-<br/>
+  
 <br/>
 <div style={{padding:"5px 20px",textAlign:"center",fontFamily:"'Poppins',system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif"}}>
 <span>Convert Bitcoin to cash instantly — fast, secure, and hassle-free.

@@ -45,20 +45,22 @@ const HowItWorks:React.FC = () => {
               padding: "20px",
               backgroundColor: "#f9f9f9",
               boxShadow: "0 2px 8px rgba(0,0,0,0.05)",
-              minHeight:width > 900  ? 300:200
+              minHeight:width > 900  ? 200:100
             }}
             data-aos="fade-up"
             data-aos-delay={index * 150}
           >
+            <div className="d-flex align-items-center" style={{gap:10}}>
             <div className="d-flex align-items-center justify-content-center" 
                 style={{width:50,height:50,borderRadius:25,background:"linear-gradient(30deg,rgb(198, 208, 243),white)",
                 fontSize:23}}>{index+1}</div>
-                <div style={{height:10}}></div>
            
             <h5 style={{ marginBottom: "8px", fontWeight: "bold" }}>
                 
 
                 {item.step}</h5>
+                </div>
+                <div style={{height:5}}/>
             <p style={{ margin: 0 }}>{item.description}</p>
           </div>
         ))}

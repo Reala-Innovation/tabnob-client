@@ -6,6 +6,7 @@
 position: fixed;
 width: 100%;
 background: var(--white);
+left:0;
 z-index: 99;
 }
 .dark-area,.dark-area *{
@@ -19,7 +20,7 @@ html,body{
     width:100vw;
     overflow: hidden !important;
 }
-.body,.nav-item{
+.body{
     max-width: 1424px;
 }
 
@@ -51,16 +52,16 @@ html,body{
     background: var(--primary) !important;
 }
 @media (min-width:900px) {
-    .nav-item{
-        border-radius: 60px;
-        margin-top: 30px;
-width: 100%;
+    /* .nav-item{ */
+        /* border-radius: 60px; */
+        /* margin-top: 30px; */
+/* width: 100%;
     }
 .nav-item .nav-item-content{
 
 min-height: 70px !important;
     align-items: center !important
-}
+} */
 
 }
 .nav-item .nav-item-content{

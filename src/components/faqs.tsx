@@ -12,10 +12,11 @@ const Faqs:React.FC = () => {
 
   return (
     <div className='faqs-container'>
+      
       <h3 data-aos={"fade-up"} className='headingFont-h3'>
         Frequently Asked Questions
       </h3>
-        <span data-aos={"fade-up"}>Still have questions? <a style={{color:"var(--gold)",fontWeight:"bold"}} href="#">Get In Touch</a></span>
+        <span data-aos={"fade-up"}>Still have questions? <a style={{color:"var(--gold)",fontWeight:"bold"}}  href="https://t.me/mubitech23">Get In Touch</a></span>
  {faqs.map((faq, index) => (
         <div
       
@@ -37,3 +38,4 @@ const Faqs:React.FC = () => {
 }
 
 export default Faqs
+export const FaqsContent=Faqs

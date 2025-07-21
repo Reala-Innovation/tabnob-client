@@ -38,15 +38,15 @@ window.onscroll=(()=>{
 const navigate=useNavigate();
   return (
     <div style={isApp && width > 900 ? {position:"relative"}:{}} className={`nav-item ${isDarkArea ? 'dark-area':''}`}>
-      <div className="nav-item-content">
+      <div className="nav-item-content align-items-center">
         <Icon />
         
        {width > 900 ? <div className={`pc-menu`}>
         
-          <MDBBtn color='link'>About Us</MDBBtn>
-          <MDBBtn  color='link'>Services</MDBBtn>
-          <MDBBtn  color='link'>Contact</MDBBtn>
-          <MDBBtn  color='link'>FAQs</MDBBtn>
+          <MDBBtn onClick={()=>navigate("/AboutUs")} color='link'>About Us</MDBBtn>
+          <MDBBtn  onClick={()=>navigate("/Services")}  color='link'>Services</MDBBtn>
+          <MDBBtn  onClick={()=>navigate("/Contacts")}  color='link'>Contacts</MDBBtn>
+          <MDBBtn  onClick={()=>navigate("/Faqs")}  color='link'>FAQs</MDBBtn>
 
           <MDBBtn  color='primary' className='get-started'
              onClick={startedClick ? startedClick:()=>{
@@ -66,11 +66,10 @@ const navigate=useNavigate();
       {width < 900 && <div className={`fullscreen-menu ${open ? 'show' : ''}`}>
         <br/>
         
-          <MDBBtn color='link'>About Us</MDBBtn>
-          <MDBBtn  color='link'>Services</MDBBtn>
-          <MDBBtn  color='link'>Contact</MDBBtn>
-
-          <MDBBtn  color='link'>FAQs</MDBBtn>
+          <MDBBtn onClick={()=>navigate("/AboutUs")} color='link'>About Us</MDBBtn>
+          <MDBBtn  onClick={()=>navigate("/Services")}  color='link'>Services</MDBBtn>
+          <MDBBtn  onClick={()=>navigate("/Contacts")}  color='link'>Contacts</MDBBtn>
+          <MDBBtn  onClick={()=>navigate("/Faqs")}  color='link'>FAQs</MDBBtn>
 <br/>
 <br/>
             <MDBBtn  color='secondary'  style={{textAlign:"center",color:"white"}} className='get-started'
