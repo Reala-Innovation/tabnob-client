@@ -114,6 +114,7 @@ const VerifyPayment: React.FC<props> = ({ quoteData, onSuccess }) => {
   
 const [downloading,setDownloading]=useState<boolean>(false);
   const fetchDetails = async () => {
+    console.log(quoteData);
     try {
       setLoading(true);
       setError('');
@@ -125,7 +126,7 @@ const [downloading,setDownloading]=useState<boolean>(false);
         setError('Something went wrong. Please try again in a few seconds.');
       }
     } catch (err: any) {
-      setError(getErrorMessage(err.message) || 'Something went wrong.');
+      setError(getErrorMessage(err) || 'Something went wrong.');
     } finally {
       setLoading(false);
     }

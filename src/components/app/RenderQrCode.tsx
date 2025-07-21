@@ -83,6 +83,12 @@ const [showStatus,setShowStatus]=useState<boolean>(false);
 
       if (res?.data?.success) {
         if(!data)setData(res.data.data);
+        else setData((prev:any)=>{
+          return {
+            ...prev,
+            status:resData?.status
+          }
+        })
         const resData=(res.data.data as CryptoQuote)
         if(resData.status=="expired" || resData?.status== "failed"){
           toast.error("Transaction "+resData?.status)
@@ -109,7 +115,7 @@ fetchDetails();
         setError('Something went wrong. Please try again in a few seconds.');
       }
     } catch (err: any) {
-      setError(getErrorMessage(err?.message) || 'Something went wrong.');
+      setError(getErrorMessage(err) || 'Something went wrong.');
     } finally {
       setLoading(false);
       setPleaseWait(false)
