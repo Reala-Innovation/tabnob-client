@@ -31,6 +31,10 @@ import { getErrorMessage } from '../logics/getErrorMesage';
 import { formatToNaira } from '../logics/date';
 import { Skeleton } from '@mui/material';
 import TransactionDetails from './transactionDetails';
+import { useInnerWidth } from '../hooks/useInnerWidth';
+import TransactionItemCard from './transactionItem';
+import type { TransactionProps } from './app/VerifyPayment';
+import TransactionItemCardSkeleton from './transactionItem.skeleton';
 
 export interface TransactionItem {
   reference: string;
@@ -63,10 +67,11 @@ const statusColorMap: Record<string, string> = {
   expired: 'secondary'
 };
 
-const ITEMS_PER_PAGE = 10;
 
 const TransactionTable: React.FC = () => {
-  const [transactions, setTransactions] = useState<TransactionItem[]>([]);
+const width=useInnerWidth();
+
+  const [transactions, setTransactions] = useState<TransactionProps[]>([]);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState('');
@@ -103,6 +108,7 @@ const TransactionTable: React.FC = () => {
       item.reference.toLowerCase().includes(search.toLowerCase()) ||
       item.address?.toLowerCase().includes(search.toLowerCase())
   );
+const ITEMS_PER_PAGE = width > 900 ? 10:50;
 
   const totalPages = Math.ceil(filteredTransactions.length / ITEMS_PER_PAGE);
   const paginated = filteredTransactions.slice(
@@ -111,8 +117,8 @@ const TransactionTable: React.FC = () => {
   );
 
   const [openTransactionModal,setOpenTransactionModal]=useState<boolean>(false);
- const [currentTransaction,setCurrentTransaction]=useState<TransactionItem>();
-  const openDetails=(transaction:TransactionItem)=>{
+ const [currentTransaction,setCurrentTransaction]=useState<TransactionProps>();
+  const openDetails=(transaction:TransactionProps)=>{
 setCurrentTransaction(transaction);
 setOpenTransactionModal(true);
 }
@@ -120,21 +126,34 @@ setOpenTransactionModal(true);
   return (
     <MDBContainer fluid className="py-4" style={{
       background:"white",
-      borderRadius:20
+      borderRadius:width < 900?  5:20,
+      minHeight:"50vh",
+      flex:1
     }}>
       <MDBInput
         label="Search by reference or address..."
         className="mb-3"
         value={search}
-        
+        style={{maxWidth:"80vw"}}
         onChange={(e) => {
           setSearch(e.target.value);
-          setPage(1); // Reset to first page on search
+          setPage(1); // Reset to first page ton search
         }}
       />
 
       {<div style={{ overflowX: 'auto', maxHeight: '500px' }}>
-        <MDBTable hover align="middle">
+        {width  <  900 ? <div>
+          {loading ? [...Array(20)].map((i:number)=>{
+            return <TransactionItemCardSkeleton key={i}/>
+          }):
+          
+          
+          paginated.map((tx:TransactionProps,i:number) => (
+  <TransactionItemCard  onClick={()=>{
+    openDetails(tx);
+  }} key={i} transaction={tx} />
+))}
+        </div>:<MDBTable hover align="middle">
           <MDBTableHead>
             <tr>
               <th>REFERENCE</th>
@@ -181,7 +200,7 @@ setOpenTransactionModal(true);
               <tr><td colSpan={12} className="text-center">No transactions found.</td></tr>
             )}
           </MDBTableBody>
-        </MDBTable>
+        </MDBTable>}
       </div>}
 
       {totalPages > 1 && (

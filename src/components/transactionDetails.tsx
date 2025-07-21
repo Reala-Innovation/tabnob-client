@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { MDBBtn, MDBBadge } from 'mdb-react-ui-kit';
 import { FaRegCopy, FaCheck } from 'react-icons/fa';
-import type { TransactionItem } from './transactionsTable';
+// import type { TransactionItem } from './transactionsTable';
 import moment from 'moment';
 import { formatToNaira } from '../logics/date';
+import type { TransactionProps } from './app/VerifyPayment';
 
 
-const TransactionDetails:React.FC<{transaction:TransactionItem}> = ( { transaction }) => {
+const TransactionDetails:React.FC<{transaction:TransactionProps}> = ( { transaction }) => {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = () => {
