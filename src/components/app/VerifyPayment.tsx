@@ -118,7 +118,7 @@ const [downloading,setDownloading]=useState<boolean>(false);
     try {
       setLoading(true);
       setError('');
-      const res = await api.get(`/api/v1/transactions/reference/${quoteData?.reference}`);
+      const res = await api.get(!quoteData?.reference  ? `/api/v1/transactions/qoute/${quoteData?.quoteId}`:`/api/v1/transactions/reference/${quoteData?.reference}`);
 // console.log('response:',res?.data)
       if (res?.data?.success) {
         setData(res.data.data);
