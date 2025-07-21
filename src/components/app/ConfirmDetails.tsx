@@ -14,6 +14,7 @@ export interface QuoteData {
   expiryTimeStamp: number;
   expiresInText: string;
   quoteText: string;
+  reference:string,
   destination: {
     type: string;
     bankCode: string;
@@ -103,7 +104,10 @@ const ConfirmDetailsContent: React.FC<QuoteContentProps> = ({ onClose, onConfirm
               <p className="detail-value">Bank  : {requestData?.bank?.bankName}</p>
             </div>
             
-            <p className="expiry-text">{quoteData.expiresInText}</p>
+            <p className="expiry-text" style={{
+              fontWeight:"bold",
+              fontSize:16
+            }}>{quoteData.expiresInText}</p>
           </div>
           
           <button className="confirm-button" onClick={()=>{

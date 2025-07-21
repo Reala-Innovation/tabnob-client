@@ -3,6 +3,7 @@ import { MDBBtn, MDBBadge } from 'mdb-react-ui-kit';
 import { FaRegCopy, FaCheck } from 'react-icons/fa';
 import type { TransactionItem } from './transactionsTable';
 import moment from 'moment';
+import { formatToNaira } from '../logics/date';
 
 
 const TransactionDetails:React.FC<{transaction:TransactionItem}> = ( { transaction }) => {
@@ -49,10 +50,10 @@ const TransactionDetails:React.FC<{transaction:TransactionItem}> = ( { transacti
         <code>{(parseInt(transaction.satAmount) / 100_000_000).toFixed(8)} BTC</code>
       </div>
       <div className="mb-2">
-        <strong>BTC Rate:</strong> ${transaction.settlementAmount.toLocaleString()}
+        <strong>BTC Rate:</strong> ${transaction.exchangeRate.btc.rate.toLocaleString()}
       </div>
       <div className="mb-2">
-        <strong>Exchange Rate:</strong> {transaction.toCurrency}
+        <strong>Exchange Rate:</strong> {formatToNaira(transaction.exchangeRate.rate,true)}
       </div>
     
      <div className="mb-2">
@@ -60,7 +61,7 @@ const TransactionDetails:React.FC<{transaction:TransactionItem}> = ( { transacti
 </div>
 
       <div className="mb-2">
-        <strong>Lightning Address:</strong>
+        <strong>Lightning Invoice:</strong>
         <div
           style={{
             background: '#f5f5f5',

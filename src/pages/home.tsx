@@ -24,8 +24,8 @@ const navigate=useNavigate();
   const width=useInnerWidth()
   return (<>
   <div className='body'>
-  <Nav startedButtonText='Get Started' startedClick={()=>{
-    navigate("/app")
+  <Nav startedButtonText={width <  900 ?"Transactions": 'Get Started'} startedClick={()=>{
+    navigate(width < 900 ? "/Transactions":"/app")
   }}/>
   <div style={{
     padding:10

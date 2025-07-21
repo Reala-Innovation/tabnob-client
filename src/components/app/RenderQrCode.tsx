@@ -11,6 +11,7 @@ import { getErrorMessage } from "../../logics/getErrorMesage";
 import { useNavigate } from "react-router-dom";
 // import Lottie from "../../lib/LotieWeb";
 import { MoonLoader } from "react-spinners";
+import CountdownTimer from "./QrCodeCountDownTimer";
 
 export interface props {
   quoteData: QuoteData;
@@ -51,6 +52,10 @@ export interface CryptoQuote {
   beneficiaryDetails: BeneficiaryDetails;
 }
 const RenderQrCode: React.FC<props> = ({ quoteData, onSuccess }) => {
+  /**
+   * todo
+   * countdown from  expiryTimeStamp to now in format of 5:00
+   */
   const [loading, setLoading] = useState<boolean>(true);
   const [pleaseWait,setPleaseWait]=useState<boolean>(false);
   const [error, setError] = useState<string>('');
@@ -61,20 +66,27 @@ const RenderQrCode: React.FC<props> = ({ quoteData, onSuccess }) => {
 const [showStatus,setShowStatus]=useState<boolean>(false);
   const fetchDetails = async () => {
     try {
-      setLoading(true)
+      if(!data)setLoading(true)
       if(data)setPleaseWait(true)
       setError('')
-      const res = await api.post('/api/v1/transactions/finitiate-payout', {
+    console.log("checking..")
+    let res:any;
+    if(data){
+      res = await api.get(`/api/v1/transactions/reference/${data.reference}`)
+    }  
+    else{
+     res = await api.post('/api/v1/transactions/finitiate-payout', {
         quoteId: quoteData?.quoteId,
         transactionId: quoteData?.id
-      })
+      });
+    }
+
       if (res?.data?.success) {
-        setData(res.data.data);
+        if(!data)setData(res.data.data);
         const resData=(res.data.data as CryptoQuote)
         if(resData.status=="expired" || resData?.status== "failed"){
           toast.error("Transaction "+resData?.status)
         navigate("/Transactions");
-
         }
         else if(resData?.status==="completed"||resData?.status==="success"){
           onSuccess();//go to next once is successful
@@ -88,7 +100,7 @@ const [showStatus,setShowStatus]=useState<boolean>(false);
           if(window.location.pathname.includes("/app")){
           const id=setTimeout(()=>{
 fetchDetails();
-        },30*1000);
+        },10*1000);
         setTimeoutId(id);
       }
 
@@ -132,6 +144,8 @@ if(followHeightContent){
   ? "danger"
   :status=="expired"? "danger": "secondary"; // default fallback
 
+
+  console.log(data);
   return (
     <MDBContainer className="form-container p-4" style={{ maxWidth: '400px' }}>
       {loading && (
@@ -221,9 +235,9 @@ if(followHeightContent){
              <div className="d-flex align-items-center justify-content-between">
             <strong>Payment ETA:</strong> <span>{data.paymentETA}</span>
           </div>
-             {status!=="processing" && <div className="d-flex align-items-center justify-content-between">
-            <strong>Expires In:</strong> <span>{data.expiresInText}</span>
-          </div>}
+             {status!=="processing" && 
+          <CountdownTimer expiryTimestamp={data.expiryTimeStamp}/>
+          }
           {showStatus &&  <div className="mb-2">
       <strong>Status:</strong> <MDBBadge size={'sm'} color={statusColor}>{(data?.status=="pending_address_deposit" ? "pending":data?.status)}</MDBBadge>
     </div>

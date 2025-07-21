@@ -4,14 +4,12 @@ import React, { useEffect, useRef, useState } from 'react';
 import type { QuoteData } from './ConfirmDetails';
 import api from '../../api/api';
 // import animation from './loader.json'
-import toast from 'react-hot-toast';
-import { FaRegCopy } from 'react-icons/fa';
-import { BiCheckDouble } from 'react-icons/bi';
 import { formatToDollars, formatToNaira } from '../../logics/date';
 import { getErrorMessage } from '../../logics/getErrorMesage';
 // import Lottie from '../../lib/LotieWeb';
 import { MoonLoader } from 'react-spinners';
 import { toPng } from 'html-to-image';
+import { AppName } from '../icon';
 export interface props {
   quoteData: QuoteData;
   onSuccess: () => void;
@@ -99,17 +97,27 @@ export interface TransactionProps{
 
   bankSessionId: string | null;
 }
+
+// interface reciept_data{
+//   appLogo:string,
+// satsAmount:number,
+// settlementAmountInNGN:number,
+// transactionStatus:string,
+// nairaExchangeRate:string,
+// amountInBtc:number,
+// ref:string
+// }
 const VerifyPayment: React.FC<props> = ({ quoteData, onSuccess }) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>('');
   const [data, setData] = useState<TransactionProps>();
-  const [copied,setCopied]=useState<boolean>(false);
+  
 const [downloading,setDownloading]=useState<boolean>(false);
   const fetchDetails = async () => {
     try {
       setLoading(true);
       setError('');
-      const res = await api.get(`/api/v1/transactions/qoute/${quoteData?.quoteId}`);
+      const res = await api.get(`/api/v1/transactions/reference/${quoteData?.reference}`);
 // console.log('response:',res?.data)
       if (res?.data?.success) {
         setData(res.data.data);
@@ -124,8 +132,7 @@ const [downloading,setDownloading]=useState<boolean>(false);
   };
 
   useEffect(() => {
-    if (quoteData) fetchDetails();
-    
+     if (quoteData) fetchDetails();
   }, [quoteData]);
 
   useEffect(()=>{
@@ -155,24 +162,45 @@ if(followHeightContent){
    const componentRef = useRef<HTMLDivElement>(null);
 
 
-
-
-  const handleDownloadImage = async () => {
+const handleDownloadImage = async () => {
   if (componentRef.current) {
-      try {
-        const dataUrl = await toPng(componentRef.current);
-        const link = document.createElement('a');
-        link.download = 'receipt.png';
-        link.href = dataUrl;
-        link.click();
-      } catch (error) {
-        console.error('Image download failed:', error);
+    try {
+      const element = componentRef.current;
+
+      // Save the original minHeight
+      const originalMinHeight = element.style.minHeight;
+
+      // Set minHeight to 600px
+      element.style.minHeight = '600px';
+
+      // Wait for layout to update
+      await new Promise((resolve) => setTimeout(resolve, 300)); // optional delay
+
+      const height = element.getBoundingClientRect().height;
+      if (height < 600) {
+        alert("Content is still less than 600px. Cannot download.");
+        element.style.minHeight = originalMinHeight;
+        return;
       }
+
+      const dataUrl = await toPng(element);
+
+      const link = document.createElement('a');
+      link.download = 'receipt.png';
+      link.href = dataUrl;
+      link.click();
+
+      // Restore original minHeight
+      element.style.minHeight = originalMinHeight;
+
+    } catch (error) {
+      console.error('Image download failed:', error);
     }
-  };
+  }
+};
 
   return (
-    <MDBContainer className="form-container p-4" style={{ maxWidth: '400px' }}>
+    <MDBContainer className="form-container p-4" style={{ maxWidth: '400px',maxHeight:350,overflow:"visible" }}>
       {loading  && (
         <div className="d-flex align-items-center justify-content-center">
        <div>
@@ -206,59 +234,48 @@ if(followHeightContent){
       {!loading && data && (
         <div className="text-center">
 <div className='' style={{
-  background:"white"
+  background:"white",
+  padding:16
 }} ref={componentRef}>
+<div style={{padding:10}} className='d-flex justify-content-between'>
+<AppName/>
+
+<h3 style={{textAlign:"center",fontWeight:"bold"}}>
+ {formatToNaira(data.settlementAmount,true)}
+</h3>
+</div>
 
         {!loading && data && (
   <div className="text-start">
+
 
     <div className="mb-2">
       <strong>Amount:</strong> {formatToDollars(data.amount,true)}  
     </div>
 
- 
+
     <div className="mb-2">
-      <strong>Settlement Amount :</strong> {formatToNaira(data.settlementAmount,true)}
+      <strong>Sats Amount:</strong> {formatToDollars(data.satAmount,false)}  
     </div>
+
+{/*  
+    <div className="mb-2">
+      <strong>Settlement Amount :</strong>
+    </div> */}
 
     <div className="mb-2">
       <strong>Status:</strong> <MDBBadge  color={statusColor}>{(data?.status=="pending_address_deposit" ? "pending":data?.status)}</MDBBadge>
     </div>
 
-    <div className="mb-2">
-      <strong>Payment ETA:</strong> {data.paymentETA}
-    </div>
-
-            <div style={{background:"#eeedf4",padding:5,borderRadius:5,gap:5}} className='d-flex align-items-center justify-content-between'>
-            <strong>To:</strong> 
-            <input disabled={true} style={{
-                width:"100%",
-                padding:4,
-                outline:"none",
-                border:"none",
-                background:"#ffffffbb",
-                borderRadius:5
-            }} value={data.address}/>
-            <MDBBtn onClick={async ()=>{
-        try {
-          await navigator.clipboard.writeText(data.address);
-          setCopied(true);
-          setTimeout(()=>{
-            setCopied(false);
-          },10000)
-        } catch (err:any) {
-          toast.error(getErrorMessage(err?.message) || "Could not copy please try again")
-        }
-            }} style={{padding:5,background:"white"}} color='secondary'>{!copied ? <FaRegCopy  style={{marginLeft:-3}} size={20} />:<BiCheckDouble style={{marginLeft:-3}} size={20} />}</MDBBtn>
-            </div>
-
-    <div className="mb-2">
-      <strong>Quote ID:</strong> {data.quoteId}
-    </div>
-
-    <div className="mb-2">
+  <div className="mb-2">
       <strong>Exchange Rate:</strong> ₦{data.exchangeRate.rate.toLocaleString()} per USD
     </div>
+           
+    <div className="mb-2">
+      <strong>Ref:</strong> {data.reference}
+    </div>
+
+  
 
   </div>
 )}
@@ -271,7 +288,7 @@ if(followHeightContent){
                       setDownloading(true);
                      await handleDownloadImage()
                         onSuccess();
-                        toast.error("download receipts not completed")
+                        // toast.error("download receipts not completed")
                       setDownloading(false);
                      }}
                      rounded

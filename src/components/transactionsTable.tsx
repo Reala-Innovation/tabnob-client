@@ -45,6 +45,14 @@ export interface TransactionItem {
   chain: string;
   toCurrency: string;
   address: string;
+  exchangeRate:{
+    btc:{
+      rate:number,
+      swapRate:number
+    },
+    rate:number,
+    currency:string
+  }
 }
 
 const statusColorMap: Record<string, string> = {
@@ -55,18 +63,26 @@ const statusColorMap: Record<string, string> = {
   expired: 'secondary'
 };
 
-const ITEMS_PER_PAGE = 5;
+const ITEMS_PER_PAGE = 10;
 
 const TransactionTable: React.FC = () => {
   const [transactions, setTransactions] = useState<TransactionItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState('');
-
+/**
+ * todo
+ * data to show on mobile
+ * ref
+ * sats
+ * status
+ * date
+ * 
+ */
   const fetchTransactions = async () => {
     try {
       setLoading(true);
-      const res = await api.get(`/api/v1/transactions/lists`);
+      const res = await api.get(`/api/v1/transactions/lists?page=${1}`);
       if (res?.data?.success) {
         setTransactions(res.data.data.offRamps);
       }
@@ -117,7 +133,7 @@ setOpenTransactionModal(true);
         }}
       />
 
-      <div style={{ overflowX: 'auto', maxHeight: '500px' }}>
+      {<div style={{ overflowX: 'auto', maxHeight: '500px' }}>
         <MDBTable hover align="middle">
           <MDBTableHead>
             <tr>
@@ -166,7 +182,7 @@ setOpenTransactionModal(true);
             )}
           </MDBTableBody>
         </MDBTable>
-      </div>
+      </div>}
 
       {totalPages > 1 && (
         <div className="d-flex justify-content-center mt-3">

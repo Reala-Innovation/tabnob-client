@@ -31,6 +31,7 @@
     "react-modal-sheet": "^4.4.0",
     "react-router-dom": "^7.6.3",
     "react-spinners": "^0.17.0",
+    "react-to-pdf": "^2.0.1",
     "styled-components": "^6.1.19",
     "vite-plugin-pwa": "^1.0.1"
   },

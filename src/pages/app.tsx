@@ -27,8 +27,7 @@ import { useNavigate } from 'react-router-dom'
 const TabNobApp:React.FC = () => {
   const [activeStep,setActiveStep]=useState<number>(0)
   const [requestData,setRequestData]=useState<requestDataProps | null>();
-    const [quoteData, setQuoteData] = useState<QuoteData | null>(null);
-  
+    const [quoteData, setQuoteData] = useState<QuoteData | null>(null)
     const width=useInnerWidth();
       const [isOpen, setOpen] = useState(false);
    const steps = [

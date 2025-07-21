@@ -6,8 +6,6 @@ import { BeatLoader } from "react-spinners";
 
 const AccountDetailsCard:React.FC<{state:"user"|"loading"|"error",error?:string,bankDetails?:{accountName:string,accountNumber:string},bank?:{bankName:string,bankCode:string}| null}> = ({bankDetails,state,error}) => {
  const [checked,setChecked]=useState<boolean>(false);
-
-
  useEffect(()=>{
 return ()=>{
     setChecked(false)
