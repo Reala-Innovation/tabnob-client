@@ -35,10 +35,12 @@ const navigate=useNavigate();
 <Benefit/>
 }
 </div>
+{!isStandalone && <>
 <br/>
 <BitcoinMissionStatement/>
 <br/>
 <HowItWorks/>
+</>}
 
 
 
