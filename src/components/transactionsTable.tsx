@@ -84,23 +84,23 @@ const width=useInnerWidth();
  * date
  * 
  */
-  const fetchTransactions = async () => {
+  const fetchTransactions = async (page:number) => {
     try {
       setLoading(true);
-      const res = await api.get(`/api/v1/transactions/lists?page=${1}`);
+      const res = await api.get(`/api/v1/transactions/lists?page=${page}`);
       if (res?.data?.success) {
-        setTransactions(res.data.data.offRamps);
+        setTransactions(res.data?.data?.offRamps || res?.data?.offRamps);
       }
     } catch (error) {
       console.error(getErrorMessage(error));
     } finally {
       setLoading(false);
     }
-  };
+  }
 
   useEffect(() => {
-    fetchTransactions();
-  }, []);
+    fetchTransactions(page);
+  }, [page]);
 
   
   const filteredTransactions = transactions.filter(
@@ -108,13 +108,8 @@ const width=useInnerWidth();
       item.reference.toLowerCase().includes(search.toLowerCase()) ||
       item.address?.toLowerCase().includes(search.toLowerCase())
   );
-const ITEMS_PER_PAGE = width > 900 ? 10:50;
+// const ITEMS_PER_PAGE = width > 900 ? 10:50;
 
-  const totalPages = Math.ceil(filteredTransactions.length / ITEMS_PER_PAGE);
-  const paginated = filteredTransactions.slice(
-    (page - 1) * ITEMS_PER_PAGE,
-    page * ITEMS_PER_PAGE
-  );
 
   const [openTransactionModal,setOpenTransactionModal]=useState<boolean>(false);
  const [currentTransaction,setCurrentTransaction]=useState<TransactionProps>();
@@ -148,7 +143,7 @@ setOpenTransactionModal(true);
           }):
           
           
-          paginated.map((tx:TransactionProps,i:number) => (
+          filteredTransactions.map((tx:TransactionProps,i:number) => (
   <TransactionItemCard  onClick={()=>{
     openDetails(tx);
   }} key={i} transaction={tx} />
@@ -169,15 +164,15 @@ setOpenTransactionModal(true);
           </MDBTableHead>
           <MDBTableBody>
             {loading ? (
-              [...Array(5)].map((_, i) => (
+              [...Array(10)].map((_, i) => (
                 <tr key={i}>
                   {Array(9).fill(0).map((_, idx) => (
                     <td key={idx}><Skeleton width={50} height={20} /></td>
                   ))}
                 </tr>
               ))
-            ) : paginated.length > 0 ? (
-              paginated.map((item, index) => (
+            ) : filteredTransactions.length > 0 ? (
+              filteredTransactions.map((item, index) => (
                 <tr key={index}>
                   <td>{item.reference}</td>
                   <td>{item.satAmount}</td>
@@ -203,23 +198,30 @@ setOpenTransactionModal(true);
         </MDBTable>}
       </div>}
 
-      {totalPages > 1 && (
-        <div className="d-flex justify-content-center mt-3">
-          <MDBPagination>
+       
+        <div className="d-flex justify-content-center mt-3" style={{gap:10}}>
+          <MDBPagination style={{gap:10}}>
             <MDBPaginationItem disabled={page === 1}>
               <MDBPaginationLink onClick={() => setPage(page - 1)}>Previous</MDBPaginationLink>
             </MDBPaginationItem>
-            {[...Array(totalPages)].map((_, i) => (
-              <MDBPaginationItem key={i} active={page === i + 1}>
-                <MDBPaginationLink onClick={() => setPage(i + 1)}>{i + 1}</MDBPaginationLink>
-              </MDBPaginationItem>
-            ))}
-            <MDBPaginationItem disabled={page === totalPages}>
-              <MDBPaginationLink onClick={() => setPage(page + 1)}>Next</MDBPaginationLink>
+{[...Array(page)]
+  .map((_, i) => i + 1)
+  .slice(-5)
+  .map((num) => (
+    <MDBPaginationItem key={num} active={num === page}>
+      <MDBPaginationLink onClick={() => setPage(num)}>
+        {num}
+      </MDBPaginationLink>
+    </MDBPaginationItem>
+  ))}
+
+
+
+            <MDBPaginationItem disabled={transactions.length ===0}>
+              <MDBPaginationLink onClick={() => setPage(page + 1)}>Next Pages</MDBPaginationLink>
             </MDBPaginationItem>
           </MDBPagination>
         </div>
-      )}
 
 
 
