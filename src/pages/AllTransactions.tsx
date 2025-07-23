@@ -3,7 +3,7 @@ import Nav from '../components/nav'
 import { useInnerWidth } from '../hooks/useInnerWidth'
 import TransactionTable from '../components/transactionsTable';
 
-const TransactionsScreen:React.FC = () => {
+const TransactionsScreenAll:React.FC = () => {
     const width=useInnerWidth();
   return (
      <div className='body'>
@@ -19,9 +19,9 @@ const TransactionsScreen:React.FC = () => {
 <br/>
 <br/>
 </>}
-<TransactionTable topTen/>
+<TransactionTable/>
 </div>
   )
 }
 
-export default TransactionsScreen
+export default TransactionsScreenAll

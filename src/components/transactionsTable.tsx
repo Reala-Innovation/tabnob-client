@@ -68,7 +68,7 @@ const statusColorMap: Record<string, string> = {
 };
 
 
-const TransactionTable: React.FC = () => {
+const TransactionTable: React.FC<{topTen?:boolean}> = ({topTen}) => {
 const width=useInnerWidth();
 
   const [transactions, setTransactions] = useState<TransactionProps[]>([]);
@@ -199,7 +199,7 @@ setOpenTransactionModal(true);
       </div>}
 
        
-        <div className="d-flex justify-content-center mt-3" style={{gap:10}}>
+        {!topTen && <div className="d-flex justify-content-center mt-3" style={{gap:10}}>
           <MDBPagination style={{gap:10}}>
             <MDBPaginationItem disabled={page === 1}>
               <MDBPaginationLink onClick={() => setPage(page - 1)}>Previous</MDBPaginationLink>
@@ -221,7 +221,7 @@ setOpenTransactionModal(true);
               <MDBPaginationLink onClick={() => setPage(page + 1)}>Next Pages</MDBPaginationLink>
             </MDBPaginationItem>
           </MDBPagination>
-        </div>
+        </div>}
 
 
 
