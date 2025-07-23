@@ -99,7 +99,7 @@ const [showStatus,setShowStatus]=useState<boolean>(false);
         if(timeoutId)clearTimeout(timeoutId)
         }
         else if(data){
-        toast.error("Trasaction is "+(resData?.status=="pending_address_deposit" ? "pending":resData?.status)+"" )
+        toast.error("Transaction is "+(resData?.status=="pending_address_deposit" ? "pending":resData?.status)+"" )
         //retry in 30 secs
         if(timeoutId)clearTimeout(timeoutId)
         
